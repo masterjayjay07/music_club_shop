@@ -3,19 +3,22 @@ version: "3.9"
 services:
   api:
     container_name: api_music_club_shop
-    build: ./
+    build: .
     ports:
       - 3000:3000
     depends_on:
       - db
     environment:
-      - NODE_ENV=production
+      - DB_USERNAME=process.env.POSTGRES_USER
+      - DB_HOST=host.docker.internal
+      - DB=process.env.POSTGRES_DB
+      - DB_PASSWORD=process.env.POSTGRES_PASSWORD
+      - DB_PORT=5431
     volumes:
       - ./:/app/:ro
-
   db:
-    container_name: postgres
-    image: "postgres:14.2-alpine"
+    container_name: db_postgres
+    image: postgres:12
     ports:
       - 5431:5432
     environment:
