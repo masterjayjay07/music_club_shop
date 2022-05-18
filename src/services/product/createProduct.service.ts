@@ -1,14 +1,17 @@
 import { v4 as uuid } from "uuid";
-import AppError from "../../errors/AppError";
+import AppDataSource from "../../data-source";
+import { Product } from "../../entities/product.entity";
+import { AppError } from "../../errors/AppError";
+import { ICreateProduct } from "../../interfaces";
 
-/*const createProductService = async ({
+const createProductService = async ({
   name,
   price,
   img_url,
   type,
   quantity_stock,
   rating,
-  label  
+  label,
 }: ICreateProduct) => {
   const productRepository = AppDataSource.getRepository(Product);
 
@@ -19,20 +22,17 @@ import AppError from "../../errors/AppError";
   });
 
   if (checkProductExists) {
-    throw new AppError("Product already registred", 409);
+    throw new AppError(409, "Product already registred");
   }
 
-  const newProduct = userProduct.create({
-    id: uuid(),
+  const newProduct = productRepository.create({
     name,
     price,
     img_url,
     type,
     quantity_stock,
     rating,
-    label
-    created_at: new Date(),
-    updated_at: new Date(),
+    label,
   });
 
   await productRepository.save(newProduct);
@@ -40,4 +40,4 @@ import AppError from "../../errors/AppError";
   return newProduct;
 };
 
-export default createUserService;*/
+export default createProductService;
