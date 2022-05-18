@@ -1,6 +1,5 @@
 import orderRouter from "./order/";
 import productRouter from "./product";
-import userRouter from "./user";
 import { Request, Response, Router } from "express";
 import { addressRoutes } from "./address/address.route";
 import userRoutes from "./user/user.routes";
@@ -10,5 +9,4 @@ router.use("/address", addressRoutes());
 router.use("/users", userRoutes);
 router.use("/products", productRouter);
 router.use("/orders", orderRouter);
-
 export default router;

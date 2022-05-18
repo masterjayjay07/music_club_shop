@@ -1,6 +1,6 @@
-import { AppDataSource } from "../../data-source";
-import { Product } from "../../entities/product.entity";
-import AppError from "../../errors/AppError";
+// import { AppDataSource } from "../../data-source";
+// import { Product } from "../../entities/product.entity";
+// import AppError from "../../errors/AppError";
 
 /*const listOneProductService = async ({ id }: IProductId) => {
   const productRepository = AppDataSource.getRepository(Product);
