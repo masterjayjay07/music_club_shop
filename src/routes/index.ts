@@ -1,9 +1,8 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import userRoutes from "./user/user.routes";
 
-const router = Router()
+const routes = Router();
 
-router.get('',(req:Request,res:Response)=>{
-    res.send("Está rodando no docker")
-})
+routes.use("/users", userRoutes);
 
-export default router
+export default routes;
