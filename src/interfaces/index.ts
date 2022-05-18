@@ -1,4 +1,3 @@
-
 export interface IAddressCreate {
   user_id: string;
   street: string;
@@ -34,4 +33,14 @@ export interface UserDataParamsUp {
   user_name: string;
   birth_date: string;
   password: string;
+}
+
+export interface IAddressUpdate {
+  id: string;
+  street: string;
+  number: number;
+  cep: string;
+  neighborhood: string;
+  country: string;
+  complement: string;
 }

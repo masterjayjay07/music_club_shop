@@ -1,5 +1,4 @@
-import { v4 as uuid } from "uuid";
-import AppError from "../../errors/AppError";
+import { AppError } from "../../errors/AppError";
 
 /*const createProductService = async ({
   name,
