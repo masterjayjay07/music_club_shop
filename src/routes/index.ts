@@ -1,15 +1,14 @@
-import { Request, Response, Router,Express } from "express";
-import orderRouter from "./order";
+import orderRouter from "./order/";
 import productRouter from "./product";
 import userRouter from "./user";
+import { Request, Response, Router } from "express";
+import { addressRoutes } from "./address/address.route";
+import userRoutes from "./user/user.routes";
 
-const router = Router()
+const router = Router();
+router.use("/address", addressRoutes());
+router.use("/users", userRoutes);
+router.use("/products", productRouter);
+router.use("/orders", orderRouter);
 
-const appRouter = (app:Express)=>{
-    app.use('/users',userRouter)
-    app.use('/products',productRouter)
-    app.use('/orders',orderRouter)
-    return app
-}
-
-export default appRouter
+export default router;
