@@ -12,8 +12,8 @@ export class Address {
   @Column("int")
   number: number;
 
-  @Column("int")
-  cep: number;
+  @Column()
+  cep: string;
 
   @Column()
   neighborhood: string;
