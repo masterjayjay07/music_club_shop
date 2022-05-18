@@ -1,24 +1,63 @@
-version: "3.9"
+# version: "3.9"
 
-services:
-  api:
-    container_name: api_music_club_shop
-    build: ./
-    ports:
-      - 3000:3000
-    depends_on:
-      - db
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - ./:/app/:ro
+# services:
+#   api:
+#     container_name: api_music_club_shop
+#     build: ./
+#     ports:
+#       - 3000:3000
+#     depends_on:
+#       - db
+#     environment:
+#       - NODE_ENV=production
+#     volumes:
+#       - ./:/app/:ro
 
-  db:
-    container_name: postgres
-    image: "postgres:14.2-alpine"
-    ports:
-      - 5431:5432
-    environment:
-      - POSTGRES_USER=process.env.POSTGRES_USER
-      - POSTGRES_PASSWORD=process.env.POSTGRES_PASSWORD
-      - POSTGRES_DB=process.env.POSTGRES_DB
+#   db:
+#     container_name: postgres
+#     image: "postgres:14.2-alpine"
+#     ports:
+#       - 5431:5432
+#     environment:
+#       - POSTGRES_USER=process.env.POSTGRES_USER
+#       - POSTGRES_PASSWORD=process.env.POSTGRES_PASSWORD
+#       - POSTGRES_DB=process.env.POSTGRES_DB
+
+# version: "3.9"
+
+# services:
+#   app:
+#     container_name: music_club
+#     image: api
+#     build: .
+#     ports:
+#       - 3000:3000
+#     volumes:
+#       - ./:/app/:ro
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#     environment:
+#       - DB_USERNAME=thiagomonserrat
+#       - DB_HOST=db # Tem que ser o nome do servico e não pode ser localhost
+#       - DB=products_management
+#       - DB_PASSWORD=1234
+#       - DB_PORT=5431
+
+#   db:
+#     container_name: db
+#     image: postgres:14
+#     hostname: postgres
+#     ports:
+#       - 5431:5432
+#     environment:
+#       - POSTGRES_USER=thiagomonserrat
+#       - POSTGRES_PASSWORD=1234
+#       - POSTGRES_DB=products_management
+#     healthcheck:
+#       test: psql -U thiagomonserrat products_management || exit 1
+#       interval: 1s
+#       timeout: 5a
+#       retries: 5
+#       start_period: 10s
+
