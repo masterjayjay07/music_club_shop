@@ -1,3 +1,5 @@
+import { GeneratedIdentifierFlags } from "typescript";
+import { string } from "yup";
 
 export interface IAddressCreate {
   user_id: string;
@@ -34,4 +36,18 @@ export interface UserDataParamsUp {
   user_name: string;
   birth_date: string;
   password: string;
+}
+
+export interface IUserId {
+  userId: string;
+}
+
+export interface ICreateProduct {
+  name: string;
+  price: number;
+  img_url: string;
+  type: string;
+  quantity_stock: number;
+  rating: number;
+  label: string;
 }

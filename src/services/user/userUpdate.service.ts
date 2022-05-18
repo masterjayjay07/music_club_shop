@@ -1,5 +1,5 @@
 import { User } from "../../entities/user.entity";
-import { AppDataSource } from "../../data-source";
+import AppDataSource from "../../data-source";
 import { AppError } from "../../errors/AppError";
 import { hash } from "bcryptjs";
 import { UserDataParamsUp } from "../../interfaces";

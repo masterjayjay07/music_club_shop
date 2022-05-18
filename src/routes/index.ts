@@ -4,11 +4,10 @@ import userRoutes from "./user/user.routes";
 
 const router = Router();
 router.use("/address", addressRoutes());
-routes.use("/users", userRoutes);
+router.use("/users", userRoutes);
 
 router.get("", (req: Request, res: Response) => {
   res.send("Está rodando no docker");
 });
 
 export default router;
-

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import AppError from "../../errors/AppError";
+import { AppError } from "../../errors/AppError";
 import addressCreateService from "../../services/address/addressCreate.service";
 
 const addressCreateController = async (req: Request, res: Response) => {
@@ -20,7 +20,7 @@ const addressCreateController = async (req: Request, res: Response) => {
       .json({ message: "Address created", address: address });
   } catch (err) {
     if (err instanceof AppError) {
-      throw new AppError(err.message, err.statusCode);
+      throw new AppError(err.statusCode, err.message);
     }
   }
 };

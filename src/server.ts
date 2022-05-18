@@ -1,10 +1,5 @@
 import app from "./app";
-import { AppDataSource } from "./data-source";
-
-(async () => {
-  await AppDataSource.initialize().catch((err) =>
-    console.error("Error during data source initialization", err)
-  );
+import AppDataSource from "./data-source";
 
 const init = () => {
   AppDataSource.initialize()
@@ -14,7 +9,9 @@ const init = () => {
     .catch((err) => {
       console.error("Error during Data Source initialization", err);
     });
-  app.listen(port, () => console.log(`App está rodando na porta ${port}`));
+  app.listen(process.env.PORT, () =>
+    console.log(`App está rodando na porta ${process.env.PORT}`)
+  );
 };
-init();
 
+init();
