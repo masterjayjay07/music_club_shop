@@ -1,25 +1,21 @@
-import { DataSource } from "typeorm"
+import { DataSource } from "typeorm";
 
-require("dotenv").config()
+require("dotenv").config;
 
-
-const host = process.env.NODE_ENV==="production" ? "db" : "localhost"
+const host = process.env.NODE_ENV === "production" ? "db" : "localhost";
 //host indica o nome do serviço que está o banco de dados
-const AppDataSource = new DataSource({
-    type:'postgres',
-    host,
-    port:5432,
+export const AppDataSource = new DataSource({
+  type: "postgres",
+  host,
+  port: 5432,
 
-    username: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DB,
+  username: "brendo", //process.env.POSTGRES_USER,
+  password: "1234", //process.env.ṔOSTGRES_PASSWORD,
+  database: "music_club_shop_db", //process.env.POSTGRES_DB,
 
-    logging:true,
-    synchronize:true,
+  synchronize: false,
+  logging: true,
 
-    entities:["src/models/*.ts"],
-    migrations:['src/migration/*.ts']
-
-})
-
-export default AppDataSource
+  entities: ["src/entities/*.ts"],
+  migrations: ["src/migrations/*.ts"],
+});
