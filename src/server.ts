@@ -6,7 +6,15 @@ import { AppDataSource } from "./data-source";
     console.error("Error during data source initialization", err)
   );
 
-  app.listen(process.env.PORT || 3000, () => {
-    console.log("Running at 3000");
-  });
-})();
+const init = () => {
+  AppDataSource.initialize()
+    .then(() => {
+      console.log("Data Source has been initialized!");
+    })
+    .catch((err) => {
+      console.error("Error during Data Source initialization", err);
+    });
+  app.listen(port, () => console.log(`App está rodando na porta ${port}`));
+};
+init();
+
