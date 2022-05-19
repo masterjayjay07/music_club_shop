@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryColumn, JoinColumn, ManyToOne } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { User } from "./user.entity";
 
 @Entity("address")
 export class Address {
@@ -23,6 +24,12 @@ export class Address {
 
   @Column()
   complement: string;
+
+  @ManyToOne(() => User, (user) => user.id, {
+    eager: true,
+  })
+  @JoinColumn({ name: "user_id" })
+  user: User;
 
   constructor() {
     if (!this.id) {
