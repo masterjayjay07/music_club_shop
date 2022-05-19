@@ -1,25 +1,15 @@
 import { Router } from "express";
-import createOrderController from "../../controllers/order/createOrder.controller";
 import orderListOneController from "../../controllers/order/listOneOrder.controller";
 import orderListController from "../../controllers/order/listOrder.controller";
-import orderListOneUserController from "../../controllers/order/listOrderOneUser.controller";
-import orderUpdateController from "../../controllers/order/updateOrder.controller";
-import orderDeleteController from "../../controllers/order/deleteOrder.controller";
-// import verifyAdmIsOwnerMiddleware from "../../middlewares/verifyAdmIsOwner.middleware";
 import authTokenMiddleware from "../../middlewares/authToken.middleware";
+import cartAddProdController from "../../controllers/order/cartAddProducts.controller";
+import cartDeleteProdController from "../../controllers/order/cartDeleteProducts.controller";
 
 const orderRouter = Router();
 
 orderRouter.get("/", authTokenMiddleware, orderListController);
-orderRouter.post("/", createOrderController);
 orderRouter.get("/:id", orderListOneController);
-orderRouter.delete(
-  "/:id",
-  authTokenMiddleware,
-
-  orderDeleteController
-);
-orderRouter.patch("/:id", authTokenMiddleware, orderUpdateController);
-orderRouter.get("/listuserorder/:userId", orderListOneUserController);
+orderRouter.post("/cart", cartAddProdController);
+orderRouter.delete("/cart/:product_id", cartDeleteProdController);
 
 export default orderRouter;
