@@ -1,5 +1,5 @@
 import * as express from "express";
-import { IUserCreate } from "src/interfaces";
+import { IUserCreate } from "../interfaces";
 
 declare global {
   namespace Express {
