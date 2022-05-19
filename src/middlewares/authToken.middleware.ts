@@ -16,27 +16,19 @@ const authTokenMiddleware = (
 ) => {
   let token = req.headers.authorization;
 
-  // const decodedVerifyToken
-
   if (!token) {
     throw new AppError(401, "Missing authorization token");
   }
 
   token = token.replace("Bearer ", "");
-  const secretKey = process.env.POSTGRES_SECRET_KEY || "";
+  const secretKey = process.env.POSTGRES_SECRET_KEY;
 
-  jwt.verify(token, secretKey, (err) => {
+  jwt.verify(token as string, secretKey as string, (err: any, decoded: any) => {
     if (err) {
       throw new AppError(401, "Invalid Token");
     }
+
+    next();
   });
-
-  const decoded = jwt.verify(token, secretKey);
-
-  const { sub } = decoded;
-
-  // req.userEmail = { email: sub as string };
-
-  next();
 };
 export default authTokenMiddleware;

@@ -10,11 +10,16 @@ import authTokenMiddleware from "../../middlewares/authToken.middleware";
 
 const orderRouter = Router();
 
-orderRouter.get("/", orderListController);
+orderRouter.get("/", authTokenMiddleware, orderListController);
 orderRouter.post("/", createOrderController);
 orderRouter.get("/:id", orderListOneController);
-orderRouter.delete("/:id", orderDeleteController);
-orderRouter.patch("/:id", orderUpdateController);
+orderRouter.delete(
+  "/:id",
+  authTokenMiddleware,
+
+  orderDeleteController
+);
+orderRouter.patch("/:id", authTokenMiddleware, orderUpdateController);
 orderRouter.get("/listuserorder/:userId", orderListOneUserController);
 
 export default orderRouter;
