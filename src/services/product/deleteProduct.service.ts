@@ -1,11 +1,12 @@
-import { AppDataSource } from "../../data-source";
+import AppDataSource from "../../data-source";
 import { Product } from "../../entities/product.entity";
-import AppError from "../../errors/AppError";
+import { AppError } from "../../errors/AppError";
 import { DeleteResult } from "typeorm";
+import { UserDataParams } from "../../interfaces";
 
-/*const deleteProductService = async ({
+const deleteProductService = async ({
   id,
-}: ProductId): Promise<DeleteResult> => {
+}: UserDataParams): Promise<DeleteResult> => {
   const productRepository = AppDataSource.getRepository(Product);
 
   const checkProductExists = await productRepository.findOne({
@@ -15,10 +16,10 @@ import { DeleteResult } from "typeorm";
   });
 
   if (!checkProductExists) {
-    throw new AppError("User not found", 404);
+    throw new AppError(404, "User not found");
   }
 
   return await productRepository.delete(id);
 };
 
-export default deleteProductService;*/
+export default deleteProductService;

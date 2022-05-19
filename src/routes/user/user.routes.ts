@@ -7,13 +7,13 @@ import userListOneController from "../../controllers/user/userListOne.controller
 import userLoginController from "../../controllers/user/userLogin.controller";
 import userUpdateController from "../../controllers/user/userUpdate.controller";
 
-const userRoutes = Router();
+const userRouter = Router();
 
-userRoutes.post("/", userCreateController);
-userRoutes.get("/", userListController);
-userRoutes.post("/login", userLoginController);
-userRoutes.delete("/:id", userDeleteSelfController);
-userRoutes.patch("/:id", userUpdateController);
-userRoutes.get("/:id", userListOneController);
+userRouter.post("/", userCreateController);
+userRouter.get("/", userListController);
+userRouter.post("/login", userLoginController);
+userRouter.delete("/:id", userDeleteSelfController);
+userRouter.patch("/:id", userUpdateController);
+userRouter.get("/:id", userListOneController);
 
-export default userRoutes;
+export default userRouter;
