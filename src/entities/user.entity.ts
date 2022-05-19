@@ -4,9 +4,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  OneToOne,
+  JoinColumn,
+  JoinTable,
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
+import Order from "./order.entity";
 
 @Entity("users")
 export class User {
@@ -31,11 +36,21 @@ export class User {
   @Column()
   password: string;
 
+  @OneToOne((type) => Order, {
+    eager: true,
+  })
+  @JoinColumn()
+  cart: Order;
+
   @CreateDateColumn()
   create_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  // @OneToMany((type) => Order, (order) => order.id, { eager: true })
+  // @JoinTable()
+  // order: Order[];
 
   constructor() {
     if (!this.id) {

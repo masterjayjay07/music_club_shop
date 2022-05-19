@@ -8,6 +8,10 @@ const userLoginController = async (req: Request, res: Response) => {
 
     const token = await userLoginService({ email, user_name, password });
 
+    // req.userEmail = {
+    //   email: email as string,
+    // };
+
     return res.status(201).json({ token });
   } catch (err) {
     if (err instanceof AppError) {
