@@ -1,8 +1,9 @@
-import { AppDataSource } from "../../data-source";
+import AppDataSource from "../../data-source";
 import { Product } from "../../entities/product.entity";
-import AppError from "../../errors/AppError";
+import { AppError } from "../../errors/AppError";
+import { UserDataParams } from "../../interfaces";
 
-/*const listOneProductService = async ({ id }: IProductId) => {
+const listOneProductService = async ({ id }: UserDataParams) => {
   const productRepository = AppDataSource.getRepository(Product);
 
   const checkProductExists = await productRepository.findOne({
@@ -12,10 +13,10 @@ import AppError from "../../errors/AppError";
   });
 
   if (!checkProductExists) {
-    throw new AppError("Product not found", 404);
+    throw new AppError(404, "Product not found");
   }
 
   return checkProductExists;
 };
 
-export default listOneProductService;*/
+export default listOneProductService;
