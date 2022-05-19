@@ -1,8 +1,9 @@
-import { AppDataSource } from "../../data-source";
+import AppDataSource from "../../data-source";
 import { Product } from "../../entities/product.entity";
-import AppError from "../../errors/AppError";
+import { AppError } from "../../errors/AppError";
+import { IProduct } from "../../interfaces";
 
-/*const updateProductService = async ({
+const updateProductService = async ({
   id,
   name,
   price,
@@ -10,7 +11,7 @@ import AppError from "../../errors/AppError";
   type,
   quantity_stock,
   rating,
-  label 
+  label,
 }: IProduct): Promise<Product> => {
   const productRepository = AppDataSource.getRepository(Product);
 
@@ -21,14 +22,16 @@ import AppError from "../../errors/AppError";
   });
 
   if (!product) {
-    throw new AppError("Product not found", 404);
+    throw new AppError(404, "Product not found");
   }
 
   name ? (product.name = name) : product.name;
-  price ? (product.price = ) : product.price;
+  price ? (product.price = price) : product.price;
   img_url ? (product.img_url = img_url) : product.img_url;
   type ? (product.price = price) : product.price;
-  quantity_stock ? (product.quantity_stock = quantity_stock) : product.quantity_stock;
+  quantity_stock
+    ? (product.quantity_stock = quantity_stock)
+    : product.quantity_stock;
   rating ? (product.rating = rating) : product.rating;
   label ? (product.label = label) : product.label;
   product.updated_at = new Date();
@@ -36,4 +39,4 @@ import AppError from "../../errors/AppError";
   return productRepository.save(product);
 };
 
-export default updateProductService;*/
+export default updateProductService;

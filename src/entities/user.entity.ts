@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  JoinTable,
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
+import Order from "./order.entity";
 
 @Entity("users")
 export class User {
@@ -36,6 +39,10 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  // @OneToMany((type) => Order, (order) => order.id, { eager: true })
+  // @JoinTable()
+  // order: Order[];
 
   constructor() {
     if (!this.id) {

@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  CreateDateColumn,
+} from "typeorm";
+import { v4 as uuid } from "uuid";
 
 import { v4 as uuid } from "uuid";
 
@@ -28,10 +35,10 @@ export class Product {
   @Column()
   label: string;
 
-  @Column()
-  created_at: Date;
+  @CreateDateColumn()
+  create_at: Date;
 
-  @Column()
+  @UpdateDateColumn()
   updated_at: Date;
 
   constructor() {

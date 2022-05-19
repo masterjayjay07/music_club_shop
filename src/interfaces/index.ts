@@ -1,3 +1,5 @@
+import { GeneratedIdentifierFlags } from "typescript";
+
 export interface IAddressCreate {
   user_id: string;
   street: string;
@@ -43,4 +45,29 @@ export interface IAddressUpdate {
   neighborhood: string;
   country: string;
   complement: string;
+}
+
+export interface IUserId {
+  userId: string;
+}
+
+export interface IProduct {
+  id: string;
+  name: string;
+  price: number;
+  img_url: string;
+  type: string;
+  quantity_stock: number;
+  rating: number;
+  label: string;
+}
+
+export interface ICreateProduct {
+  name: string;
+  price: number;
+  img_url: string;
+  type: string;
+  quantity_stock: number;
+  rating: number;
+  label: string;
 }

@@ -4,7 +4,7 @@ import { User } from "./user.entity";
 
 @Entity("address")
 export class Address {
-  @PrimaryColumn("uuid")
+  @PrimaryColumn()
   readonly id: string;
 
   @Column()
