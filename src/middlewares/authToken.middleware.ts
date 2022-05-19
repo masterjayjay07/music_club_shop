@@ -1,6 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/AppError";
+
+import { User } from "../entities/user.entity";
 import jwt from "jsonwebtoken";
+
+interface DecodedLog {
+  email: string;
+  is_adm: boolean;
+  user_name: string;
+}
 
 const authTokenMiddleware = (
   req: Request,
@@ -14,14 +22,15 @@ const authTokenMiddleware = (
   }
 
   token = token.replace("Bearer ", "");
-  const secretKey = process.env.POSTGRES_SECRET_KEY || "";
+  const secretKey = process.env.POSTGRES_SECRET_KEY;
 
-  jwt.verify(token, secretKey, (err) => {
+  jwt.verify(token as string, secretKey as string, (err: any, decoded: any) => {
     if (err) {
       throw new AppError(401, "Invalid Token");
     }
+
+    next();
   });
 
-  next();
 };
 export default authTokenMiddleware;

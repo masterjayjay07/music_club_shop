@@ -19,19 +19,15 @@ export default class Order {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @ManyToOne((type) => User, (user) => user.id, { eager: true })
+  @Column("float")
+  total: number;
+
+  @ManyToMany((type) => Product, {
+    eager: true,
+  })
   @JoinTable()
-  user: User;
+  products: Product[];
 
   @Column()
   userId: string;
-
-  @Column()
-  status: string;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuid();
-    }
-  }
 }

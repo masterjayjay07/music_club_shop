@@ -14,6 +14,7 @@ export interface IUserCreate {
   name: string;
   email: string;
   user_name: string;
+  is_adm: boolean;
   birth_date: string;
   password: string;
 }
