@@ -5,6 +5,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
+  JoinColumn,
   JoinTable,
 } from "typeorm";
 
@@ -33,6 +35,12 @@ export class User {
 
   @Column()
   password: string;
+
+  @OneToOne((type) => Order, {
+    eager: true,
+  })
+  @JoinColumn()
+  cart: Order;
 
   @CreateDateColumn()
   create_at: Date;
