@@ -1,17 +1,13 @@
 import app from "./app";
 import AppDataSource from "./data-source";
 
-const init = () => {
-  AppDataSource.initialize()
-    .then(() => {
-      console.log("Data Source has been initialized!");
-    })
-    .catch((err) => {
-      console.error("Error during Data Source initialization", err);
-    });
-  app.listen(process.env.PORT, () =>
-    console.log(`App está rodando na porta ${process.env.PORT}`)
+(async () => {
+  await AppDataSource.initialize().catch((err) =>
+    console.error("Error during data source initialization", err)
   );
-};
 
-init();
+  app.listen(process.env.PORT, () => {
+    console.log(`Running at  ${process.env.PORT} `);
+  });
+})();
+/* uepa*/
