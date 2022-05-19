@@ -9,9 +9,9 @@ const AppDataSource = new DataSource({
   host: "localhost",
   port: 5432,
 
-  username: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
+  username: "brendo", //process.env.POSTGRES_USER,
+  password: "1234", //process.env.POSTGRES_PASSWORD,
+  database: "music_club_shop_db", //process.env.POSTGRES_DB,
 
   logging: true,
   synchronize: false,

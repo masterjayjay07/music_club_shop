@@ -6,7 +6,7 @@ import userRoutes from "./user/user.routes";
 
 const router = Router();
 router.use("/address", addressRoutes());
-router.use("/users", userRoutes);
+router.use("/users", userRouter);
 router.use("/products", productRouter);
 router.use("/orders", orderRouter);
 export default router;
