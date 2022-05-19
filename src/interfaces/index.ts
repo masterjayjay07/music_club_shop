@@ -18,6 +18,15 @@ export interface IUserCreate {
   password: string;
 }
 
+export interface IUserId {
+  name: string;
+  email: string;
+  user_name: string;
+  birth_date: string;
+  password: string;
+  id?: string;
+}
+
 export interface IUserLogin {
   email?: string;
   user_name?: string;
@@ -47,10 +56,6 @@ export interface IAddressUpdate {
   complement: string;
 }
 
-export interface IUserId {
-  userId: string;
-}
-
 export interface IProduct {
   id: string;
   name: string;
@@ -60,6 +65,17 @@ export interface IProduct {
   quantity_stock: number;
   rating: number;
   label: string;
+}
+
+export interface IProductId {
+  name: string;
+  price: number;
+  img_url: string;
+  type: string;
+  quantity_stock: number;
+  rating: number;
+  label: string;
+  id?: string;
 }
 
 export interface ICreateProduct {
