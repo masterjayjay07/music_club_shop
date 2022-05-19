@@ -7,8 +7,6 @@ import {
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-import { v4 as uuid } from "uuid";
-
 @Entity("products")
 export class Product {
   @PrimaryGeneratedColumn("uuid")
