@@ -3,7 +3,7 @@ import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 import bcrypt from "bcryptjs";
 import { AppError } from "../../errors/AppError";
-import Order from "../../entities/order.entity";
+import Cart from "../../entities/cart.entity";
 import { v4 as uuid } from "uuid";
 
 const userCreateService = async ({
@@ -15,7 +15,7 @@ const userCreateService = async ({
   password,
 }: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
-  const cartRepository = AppDataSource.getRepository(Order);
+  const cartRepository = AppDataSource.getRepository(Cart);
 
   const users = await userRepository.find();
 
@@ -34,7 +34,7 @@ const userCreateService = async ({
 
   const userId = uuid();
 
-  const cart = new Order();
+  const cart = new Cart();
   cart.total = 0;
   cart.userId = userId;
 
