@@ -12,12 +12,13 @@ const userUpdateService = async ({
   birth_date,
   password,
 }: UserDataParamsUp): Promise<User> => {
+
   const userRepository = AppDataSource.getRepository(User);
 
-  const user = await userRepository.findOne({ where: { id } });
-
+  const users = await userRepository.find();
+  const user = users.find(user=>user.id===id)
   if (!user) {
-    throw new AppError(409, "Not found any product with this id");
+    throw new AppError(409, "Not found any user with this id");
   }
   if (password) {
     const hashedPassword = await hash(password, 8);
