@@ -1,5 +1,5 @@
 import AppDataSource from "../../data-source";
-import Order from "../../entities/order.entity";
+import Cart from "../../entities/cart.entity";
 import { Product } from "../../entities/product.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
@@ -16,7 +16,7 @@ const cartAddProdService = async (product_id: string, userEmail: string) => {
     },
   });
 
-  const cartRepository = AppDataSource.getRepository(Order);
+  const cartRepository = AppDataSource.getRepository(Cart);
 
   const cart = await cartRepository.findOne({
     where: {

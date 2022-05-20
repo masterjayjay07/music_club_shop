@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AppError, handleError } from "../../errors/AppError";
-import cartAddProdService from "../../services/order/cartAddProducts.service";
+import cartAddProdService from "../../services/cart/cartAddProducts.service";
 
 const cartAddProdController = async (req: Request, res: Response) => {
   try {

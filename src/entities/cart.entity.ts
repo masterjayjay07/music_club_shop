@@ -1,21 +1,14 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { User } from "./user.entity";
-
-import { v4 as uuid } from "uuid";
 import { Product } from "./product.entity";
 
-@Entity()
-export default class Order {
+@Entity("carts")
+export default class Cart {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
