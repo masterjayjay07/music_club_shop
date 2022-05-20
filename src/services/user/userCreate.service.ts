@@ -6,6 +6,7 @@ import { AppError } from "../../errors/AppError";
 import Cart from "../../entities/cart.entity";
 import { Address } from "../../entities/address.entity";
 import { v4 as uuid } from "uuid";
+import Buys from "../../entities/buys.entity";
 
 const userCreateService = async ({
   name,
@@ -18,6 +19,7 @@ const userCreateService = async ({
   const userRepository = AppDataSource.getRepository(User);
   const cartRepository = AppDataSource.getRepository(Cart) 
   const addressRepository = AppDataSource.getRepository(Address)
+  const buyRepository = AppDataSource.getRepository(Buys)
 
   const users = await userRepository.find();
 
@@ -40,10 +42,19 @@ const userCreateService = async ({
   cartRepository.create(cart)
   await cartRepository.save(cart)
 
-  // const address = new Address()
+
   
-  // addressRepository.create(address)
-  // await addressRepository.save(address)
+
+  const address = new Address()
+  address.cep=''
+  address.complement=''
+  address.neighborhood=''
+  address.street=''
+  address.country=''
+  address.number=0
+
+  addressRepository.create(address)
+  await addressRepository.save(address)
 
   const user = new User();
   user.name = name;
@@ -53,7 +64,8 @@ const userCreateService = async ({
   user.is_adm = is_adm;
   user.password = bcrypt.hashSync(password, 8);
   user.cart=cart
-  //user.address=[address]
+  user.address=[address]
+  user.buys = []
 
   userRepository.create(user);
   await userRepository.save(user);

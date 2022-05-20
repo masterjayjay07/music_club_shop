@@ -5,6 +5,7 @@ import userDeleteSelfController from "../../controllers/user/userDeleteSelf.cont
 import userListController from "../../controllers/user/userList.controller";
 import userListOneController from "../../controllers/user/userListOne.controller";
 import userLoginController from "../../controllers/user/userLogin.controller";
+import userProfileController from "../../controllers/user/userProfile.controller";
 import userUpdateController from "../../controllers/user/userUpdate.controller";
 
 import verifyTokenAuthenticationMiddleware from "../../middlewares/authToken.middleware";
@@ -19,6 +20,7 @@ userRouter.post("/login", userLoginController);
 userRouter.use(verifyTokenAuthenticationMiddleware)
 
 userRouter.get("/", userListController);
+userRouter.get("/profile", userProfileController);
 
 userRouter.use('/:id',verifyUserExistanceMiddleware,verifyIfItsAdmOrOwnerMiddleware)
 
