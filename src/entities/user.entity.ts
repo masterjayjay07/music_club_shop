@@ -9,7 +9,7 @@ import {
   OneToOne,
   JoinColumn,
 } from "typeorm";
-
+import { Exclude } from "class-transformer";
 import { v4 as uuid } from "uuid";
 import { Address } from "./address.entity";
 import Cart from "./cart.entity";
@@ -35,6 +35,7 @@ export class User {
   @Column({ default: false })
   is_adm: boolean;
 
+  @Exclude()
   @Column()
   password: string;
 

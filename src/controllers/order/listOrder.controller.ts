@@ -14,4 +14,4 @@ const orderListController = async (req: Request, res: Response) => {
   }
 };
 
-export default orderListController;
+export default orderListController

@@ -20,4 +20,4 @@ const orderUpdateController = async (request: Request, response: Response) => {
   }
 };
 
-export default orderUpdateController;
+export default orderUpdateController

@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { AppError } from "../../errors/AppError";
 import Cart from "../../entities/cart.entity";
 import { Address } from "../../entities/address.entity";
+import { v4 as uuid } from "uuid";
 
 const userCreateService = async ({
   name,
@@ -33,7 +34,7 @@ const userCreateService = async ({
     throw new AppError(409, "Username already exists");
   }
   const cart = new Cart()
-  cart.product = []
+  cart.products = []
   cart.subtotal = 0
 
   cartRepository.create(cart)

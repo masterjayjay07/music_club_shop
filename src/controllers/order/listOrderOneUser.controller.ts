@@ -15,4 +15,4 @@ const orderListOneUserController = async (req: Request, res: Response) => {
   }
 };
 
-export default orderListOneUserController;
+export default orderListOneUserController
