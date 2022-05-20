@@ -29,16 +29,14 @@ const createOrderService = async ({
   if (!user) {
     throw new AppError(404, "User not found");
   }
-
   if(user.cart.products.length===0){
     throw new AppError(409,"Cart is empty")
   }
-
   const cart = await cartRepository.findOne({where:{id:user.cart.id}})
 
-  if(cart){
-
+  if(cart && user){
     const buy = new Buys()
+    buy.user= user
     buy.products = cart?.products
     buy.total = cart?.subtotal
     
@@ -48,8 +46,6 @@ const createOrderService = async ({
     cart.products =[]
     cart.subtotal = 0
     await cartRepository.save(cart)
-
-
   }
 
   const updated_users = await usersRepository.find();
