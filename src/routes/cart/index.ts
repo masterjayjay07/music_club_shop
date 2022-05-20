@@ -3,14 +3,15 @@ import { Router } from "express";
 import addCartController from "../../controllers/cart/addCart.controller";
 import cartUpdateController from "../../controllers/cart/cartUpdate.controller";
 import cartListController from "../../controllers/cart/cartList.controller";
-import cartRemove from "../../controllers/cart/cartRemove.controller"
+import cartRemove from "../../controllers/cart/cartRemove.controller";
+import cartListOneController from "../../controllers/cart/cartListOne.controller";
 
-const cartRouter = Router()
+const cartRouter = Router();
 
-cartRouter.post('/',addCartController)
-cartRouter.get('/',cartListController)
+cartRouter.post("/", addCartController);
+cartRouter.get("/", cartListController);
 cartRouter.get("/:id", cartListOneController);
-cartRouter.patch('/:cartProdId',cartUpdateController)
-cartRouter.delete('/:cartProdId',cartRemove)
+cartRouter.patch("/:cartProdId", cartUpdateController);
+cartRouter.delete("/:cartProdId", cartRemove);
 
-export default cartRouter
+export default cartRouter;

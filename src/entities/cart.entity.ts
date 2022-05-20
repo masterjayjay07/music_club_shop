@@ -5,9 +5,8 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import {v4 as uuid} from 'uuid'
-import { Product } from "./product.entity";
 import { v4 as uuid } from "uuid";
+import { Product } from "./product.entity";
 
 @Entity("carts")
 export default class Cart {
