@@ -28,8 +28,8 @@ const userLoginService = async ({ email, user_name, password }: IUserLogin) => {
     String(process.env.POSTGRES_SECRET_KEY),
 
     {
-      subject: account.email,
-      expiresIn: "1d",
+      subject: account.id,
+      expiresIn: "1d"
     }
   );
 
