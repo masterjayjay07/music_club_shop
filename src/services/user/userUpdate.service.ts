@@ -32,6 +32,7 @@ const userUpdateService = async ({
   user_name ? (user.user_name = user_name) : user.user_name;
   birth_date ? (user.birth_date = birth_date) : user.birth_date;
   is_adm ? (user.is_adm = is_adm) : user.is_adm;
+  user.updated_at = new Date();
 
   await userRepository.save(user);
 
