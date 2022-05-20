@@ -9,9 +9,8 @@ const init = async () => {
     .catch((err) => {
       console.error("Error during Data Source initialization", err);
     });
-  app.listen(process.env.PORT, () =>
-    console.log(`App está rodando na porta ${process.env.PORT}`)
-
+  app.listen(process.env.PORT || 3000, () =>
+    console.log(`App está rodando na porta ${process.env.PORT || 3000}`)
   );
 };
 init();
