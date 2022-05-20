@@ -1,8 +1,8 @@
 import app from "./app";
 import AppDataSource from "./data-source";
 
-const init = () => {
-  AppDataSource.initialize()
+const init = async () => {
+  await AppDataSource.initialize()
     .then(() => {
       console.log("Data Source has been initialized!");
     })
