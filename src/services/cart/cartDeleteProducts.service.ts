@@ -29,7 +29,7 @@ const cartDelProdService = async (userEmail: string, product_id: string) => {
     }
 
     cart.products = cart.products.filter((prod) => prod.id !== product_id);
-    cart.total = fixedFloat(
+    cart.subtotal = fixedFloat(
       cart.products.reduce((acc, prod) => acc + prod.price, 0)
     );
 
