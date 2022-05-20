@@ -32,6 +32,8 @@ const cartAddProdService = async (product_id: string, userEmail: string) => {
     },
   });
 
+  console.log(productToAdd);
+
   if (!productToAdd) {
     throw new AppError(404, "Product not found");
   }
@@ -44,7 +46,7 @@ const cartAddProdService = async (product_id: string, userEmail: string) => {
     }
 
     cart.products = [...cart.products, productToAdd];
-    cart.total = fixedFloat(cart.total + productToAdd.price);
+    cart.subtotal = fixedFloat(cart.subtotal + productToAdd.price);
 
     await cartRepository.save(cart);
 

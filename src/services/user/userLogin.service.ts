@@ -32,7 +32,7 @@ const userLoginService = async ({ email, user_name, password }: IUserLogin) => {
       expiresIn: "1d"
     }
   );
-
+  
   return token;
 };
 

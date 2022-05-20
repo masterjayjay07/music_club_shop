@@ -4,7 +4,7 @@ import Cart from "../../entities/cart.entity";
 const cartListService = async () => {
   const cartRepository = AppDataSource.getRepository(Cart);
 
-  const carts = cartRepository.find();
+  const carts = await cartRepository.find();
 
   return carts;
 };
