@@ -10,7 +10,7 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "test": "jest",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/src/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
