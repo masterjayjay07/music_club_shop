@@ -7,14 +7,14 @@ const addressListOneService = async (user_id: string) => {
 
   const allAddress = await addressRepository.find();
 
-  const userAllAddress = allAddress.filter(
-    (element) => element.user.id === user_id
-  );
+  // const userAllAddress = allAddress.filter(
+  //   (element) => element.user.id === user_id
+  // );
 
-  if (userAllAddress.length === 0) {
-    throw new AppError(404, "No address was found");
-  }
-  return userAllAddress;
+  // if (userAllAddress.length === 0) {
+  //   throw new AppError(404, "No address was found");
+  // }
+  return allAddress;
 };
 
 export default addressListOneService;

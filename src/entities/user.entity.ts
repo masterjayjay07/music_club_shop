@@ -11,13 +11,14 @@ import {
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
+import { Address } from "./address.entity";
 import Cart from "./cart.entity";
 import Order from "./order.entity";
 
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  readonly id: string;
 
   @Column({ length: 256, nullable: false })
   name: string;
@@ -47,9 +48,10 @@ export class User {
   @JoinColumn()
   cart:Cart;
 
-  // @OneToMany((type) => Order, (order) => order.id, { eager: true })
-  // @JoinTable()
-  // order: Order[];
+  
+  //  @OneToMany((type) => Address, (address) => address.id, { eager: true })
+  //  @JoinTable()
+  //  address: Address[];
 
   constructor() {
     if (!this.id) {

@@ -32,9 +32,11 @@ const addCartService = async ({ userId, productId }:IAddCart)=>{
     if(cart && productToAdd){
         
         if(cart.product.some(prod=>prod.id===productToAdd.id)){
+            
             throw new AppError(400,'Product is already added to the cart')
+        }else{
+            cart.product = [...cart.product,productToAdd] 
         }
-        cart.product = [...cart.product,productToAdd] 
         cart.subtotal += productToAdd.price
         
         await cartRepository.save(cart)
