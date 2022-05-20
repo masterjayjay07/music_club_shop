@@ -14,6 +14,7 @@ const removeCartService = async (cartProdId:string,userId:string | (() => string
     }
     
     const cart = user.cart
+
     if(cart.products.some(prod=>prod.id===cartProdId)===false){
         throw new AppError(404,'Product is not on cart')
     }

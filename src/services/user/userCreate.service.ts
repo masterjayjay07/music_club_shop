@@ -14,7 +14,7 @@ const userCreateService = async ({
   user_name,
   birth_date,
   password,
-  is_adm=false,
+  is_adm = false,
 }: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
   const cartRepository = AppDataSource.getRepository(Cart) 
@@ -35,6 +35,7 @@ const userCreateService = async ({
   if (userNameAlreadyExists) {
     throw new AppError(409, "Username already exists");
   }
+
   const cart = new Cart()
   cart.products = []
   cart.subtotal = 0
@@ -42,9 +43,8 @@ const userCreateService = async ({
   cartRepository.create(cart)
   await cartRepository.save(cart)
 
-
+  cart.userId = userId;
   
-
   const address = new Address()
   address.cep=''
   address.complement=''

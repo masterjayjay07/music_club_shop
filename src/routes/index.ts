@@ -8,13 +8,12 @@ import orderRouter from "./order";
 
 const router = Router();
 
-
-router.use("/address", addressRoutes);
 router.use("/users", userRoutes);
 router.use("/products", productRouter);
-router.use("/cart", cartRouter);
-router.use(authTokenMiddleware)
-router.use("/cart",cartRouter)
+router.use(authTokenMiddleware);
+router.use("/cart",cartRouter);
 router.use("/address", addressRoutes);
 router.use("/orders", orderRouter);
+
+
 export default router;

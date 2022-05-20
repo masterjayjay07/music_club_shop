@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import addCartController from "../../controllers/cart/addCart.controller";
 import cartUpdateController from "../../controllers/cart/cartUpdate.controller";
 import cartListController from "../../controllers/cart/cartList.controller";
@@ -8,6 +9,7 @@ const cartRouter = Router()
 
 cartRouter.post('/',addCartController)
 cartRouter.get('/',cartListController)
+cartRouter.get("/:id", cartListOneController);
 cartRouter.patch('/:cartProdId',cartUpdateController)
 cartRouter.delete('/:cartProdId',cartRemove)
 

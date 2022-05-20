@@ -1,4 +1,5 @@
 import { GeneratedIdentifierFlags } from "typescript";
+import { boolean } from "yup";
 
 export interface IAddressCreate {
   user_id: string;
@@ -16,7 +17,7 @@ export interface IUserCreate {
   user_name: string;
   birth_date: string;
   password: string;
-  is_adm?:boolean
+  is_adm?: boolean
 }
 
 export interface IUserId {
@@ -40,11 +41,12 @@ export interface UserDataParams {
 
 export interface UserDataParamsUp {
   id: string;
-  name: string;
-  email: string;
-  user_name: string;
-  birth_date: string;
-  password: string;
+  name?: string;
+  email?: string;
+  user_name?: string;
+  birth_date?: string;
+  password?: string;
+  is_adm?: boolean;
 }
 
 export interface IAddressUpdate {
