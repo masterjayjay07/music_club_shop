@@ -1,14 +1,15 @@
 import { Router } from "express";
-import addCartController from "../../controllers/cart/addCart.controller";
-import cartUpdateController from "../../controllers/cart/cartUpdate.controller";
+import authTokenMiddleware from "../../middlewares/authToken.middleware";
+import cartAddProdController from "../../controllers/cart/cartAddProducts.controller";
+import cartDeleteProdController from "../../controllers/cart/cartDeleteProducts.controller";
 import cartListController from "../../controllers/cart/cartList.controller";
-import cartRemove from "../../controllers/cart/cartRemove.controller"
+import cartListOneController from "../../controllers/cart/cartListOne.controller";
 
-const cartRouter = Router()
+const cartRouter = Router();
 
-cartRouter.post('/',addCartController)
-cartRouter.get('/',cartListController)
-cartRouter.patch('/:cartProdId',cartUpdateController)
-cartRouter.delete('/:cartProdId',cartRemove)
+cartRouter.get("/", authTokenMiddleware, cartListController);
+cartRouter.get("/:id", cartListOneController);
+cartRouter.post("/add", cartAddProdController);
+cartRouter.delete("/del/:product_id", cartDeleteProdController);
 
-export default cartRouter
+export default cartRouter;

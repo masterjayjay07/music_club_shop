@@ -4,15 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
-  JoinTable,
   OneToOne,
   JoinColumn,
 } from "typeorm";
-
+import { Exclude } from "class-transformer";
 import { v4 as uuid } from "uuid";
 import Cart from "./cart.entity";
-import Order from "./order.entity";
 
 @Entity("users")
 export class User {
@@ -34,22 +31,21 @@ export class User {
   @Column({ default: false })
   is_adm: boolean;
 
+  @Exclude()
   @Column()
   password: string;
+
+  @OneToOne((type) => Cart, {
+    eager: true,
+  })
+  @JoinColumn()
+  cart: Cart;
 
   @CreateDateColumn()
   create_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
-
-  @OneToOne((type=>Cart),{eager:true})
-  @JoinColumn()
-  cart:Cart;
-
-  // @OneToMany((type) => Order, (order) => order.id, { eager: true })
-  // @JoinTable()
-  // order: Order[];
 
   constructor() {
     if (!this.id) {

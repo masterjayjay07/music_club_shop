@@ -28,7 +28,7 @@ const updateProductService = async ({
   name ? (product.name = name) : product.name;
   price ? (product.price = price) : product.price;
   img_url ? (product.img_url = img_url) : product.img_url;
-  type ? (product.price = price) : product.price;
+  type ? (product.type = type) : product.type;
   quantity_stock
     ? (product.quantity_stock = quantity_stock)
     : product.quantity_stock;

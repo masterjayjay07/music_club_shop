@@ -5,15 +5,15 @@ import { AppError, handleError } from "../../errors/AppError";
 
 const userCreateController = async (req: Request, res: Response) => {
   try {
-    const { name, email, user_name, birth_date, password,is_adm } = req.body;
+    const { name, email, user_name, birth_date, password, is_adm } = req.body;
 
     const newUser = await userCreateService({
       name,
       email,
       user_name,
+      is_adm,
       birth_date,
       password,
-      is_adm
     });
 
     return res.status(201).send(newUser);

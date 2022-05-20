@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm"
 
-export class apiTables1653024715024 implements MigrationInterface {
+export class initialMigration1653053147483 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
     }

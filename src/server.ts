@@ -11,7 +11,7 @@ const init = async () => {
     });
   app.listen(process.env.PORT, () =>
     console.log(`App está rodando na porta ${process.env.PORT}`)
+
   );
 };
-
 init();
