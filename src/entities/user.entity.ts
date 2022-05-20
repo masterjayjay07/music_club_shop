@@ -6,9 +6,12 @@ import {
   UpdateDateColumn,
   OneToMany,
   JoinTable,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
 
 import { v4 as uuid } from "uuid";
+import Cart from "./cart.entity";
 import Order from "./order.entity";
 
 @Entity("users")
@@ -39,6 +42,10 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToOne((type=>Cart),{eager:true})
+  @JoinColumn()
+  cart:Cart;
 
   // @OneToMany((type) => Order, (order) => order.id, { eager: true })
   // @JoinTable()

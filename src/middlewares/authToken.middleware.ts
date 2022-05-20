@@ -22,7 +22,7 @@ const authTokenMiddleware = (req: Request,res: Response,next: NextFunction) => {
   });
   const decoded = jwt.verify(token, secretKey);
   const { sub } = decoded;
-
+  
   next();
 };
 export default authTokenMiddleware;

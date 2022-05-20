@@ -17,16 +17,10 @@ const createOrderService = async ({
   const orderRepository = AppDataSource.getRepository(Order);
   const usersRepository = AppDataSource.getRepository(User);
 
-  const user = await usersRepository.findOne({
-    where: {
-      id: userId,
-    },
-  });
-
-  console.log(user);
-
+  const users = await usersRepository.find();
+  const user = users.find(user=>user.id===userId)
   if (!user) {
-    throw new AppError(509, "Invalid list of ids");
+    throw new AppError(404, "Invalid user ID");
   }
 
   const order = orderRepository.create({

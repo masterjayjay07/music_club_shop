@@ -16,6 +16,7 @@ export interface IUserCreate {
   user_name: string;
   birth_date: string;
   password: string;
+  is_adm?:boolean
 }
 
 export interface IUserLogin {
