@@ -24,9 +24,12 @@ const userLoginService = async ({ email, user_name, password }: IUserLogin) => {
 
   const token = jwt.sign(
     { email: email, is_adm: account.is_adm, user_name: account.user_name },
-    String(process.env.JWT_SECRET),
+
+    String(process.env.POSTGRES_SECRET_KEY),
+
     {
-      expiresIn: "1d",
+      subject: account.id,
+      expiresIn: "1d"
     }
   );
 

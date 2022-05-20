@@ -1,27 +1,24 @@
 import { NextFunction, Request, Response } from "express";
-import { AppError } from "../errors/AppError";
+import { AppError, handleError } from "../errors/AppError";
 import jwt from "jsonwebtoken";
 
-const authTokenMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const authTokenMiddleware = (req: Request,res: Response,next: NextFunction) => {
+
   let token = req.headers.authorization;
-
   if (!token) {
-    throw new AppError(401, "Missing authorization token");
+    const errorCatched = new AppError(401, "Missing authorization token");
+    handleError(errorCatched,res)
   }
-
   token = token.replace("Bearer ", "");
-  const secretKey = process.env.POSTGRES_SECRET_KEY || "";
+  const secretKey = process.env.POSTGRES_SECRET_KEY;
 
-  jwt.verify(token, secretKey, (err) => {
+  jwt.verify(token as string, secretKey as string, (err: any, decoded: any) => {
     if (err) {
-      throw new AppError(401, "Invalid Token");
+      const errorCatched = new AppError(401, "Invalid Token");
+      handleError(errorCatched,res)
+      return
     }
   });
-
   next();
 };
 export default authTokenMiddleware;
