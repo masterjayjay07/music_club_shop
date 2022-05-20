@@ -11,23 +11,27 @@ const userUpdateService = async ({
   user_name,
   birth_date,
   password,
+  is_adm,
 }: UserDataParamsUp): Promise<User> => {
-
   const userRepository = AppDataSource.getRepository(User);
 
   const users = await userRepository.find();
-  const user = users.find(user=>user.id===id)
+  const user = users.find((user) => user.id === id);
+
   if (!user) {
     throw new AppError(409, "Not found any user with this id");
   }
+
   if (password) {
     const hashedPassword = await hash(password, 8);
     password ? (user.password = hashedPassword) : user.password;
   }
+
   name ? (user.name = name) : user.name;
   email ? (user.email = email) : user.email;
   user_name ? (user.user_name = user_name) : user.user_name;
   birth_date ? (user.birth_date = birth_date) : user.birth_date;
+  is_adm ? (user.is_adm = is_adm) : user.is_adm;
 
   await userRepository.save(user);
 

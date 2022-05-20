@@ -1,15 +1,16 @@
 import { Router } from "express";
-import cartListOneService from "../../services/cart/cartListOne.service";
-import cartListService from "../../services/cart/cartList.service";
-import authTokenMiddleware from "../../middlewares/authToken.middleware";
-import cartAddProdController from "../../controllers/cart/cartAddProducts.controller";
-import cartDeleteProdController from "../../controllers/cart/cartDeleteProducts.controller";
 
-const cartRouter = Router();
+import addCartController from "../../controllers/cart/addCart.controller";
+import cartUpdateController from "../../controllers/cart/cartUpdate.controller";
+import cartListController from "../../controllers/cart/cartList.controller";
+import cartRemove from "../../controllers/cart/cartRemove.controller"
 
-cartRouter.get("/", authTokenMiddleware, cartListService);
-cartRouter.get("/:id", cartListOneService);
-cartRouter.post("/add", cartAddProdController);
-cartRouter.delete("/del/:product_id", cartDeleteProdController);
+const cartRouter = Router()
 
-export default cartRouter;
+cartRouter.post('/',addCartController)
+cartRouter.get('/',cartListController)
+cartRouter.get("/:id", cartListOneController);
+cartRouter.patch('/:cartProdId',cartUpdateController)
+cartRouter.delete('/:cartProdId',cartRemove)
+
+export default cartRouter

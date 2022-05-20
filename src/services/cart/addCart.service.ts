@@ -30,20 +30,22 @@ const addCartService = async ({ userId, productId }:IAddCart)=>{
     const cart = carts.find(cart=>cart.id===user?.cart.id)
     
     if(cart && productToAdd){
-        
-        if(cart.products.some(prod=>prod.id===productToAdd.id)){
+        const cartProd = cart.products.find(prod=>prod.id===productToAdd.id)
+        if(cartProd){
             
-            throw new AppError(400,'Product is already added to the cart')
+            //throw new AppError(400,'Product is already added to the cart')
         }else{
+           
             cart.products = [...cart.products,productToAdd] 
+          
         }
         cart.subtotal += productToAdd.price
         
         await cartRepository.save(cart)
         return cart
     }
-  
-  return
+
+    return 
 }
 
 export default addCartService

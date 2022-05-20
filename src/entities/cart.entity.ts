@@ -5,7 +5,9 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import {v4 as uuid} from 'uuid'
 import { Product } from "./product.entity";
+import { v4 as uuid } from "uuid";
 
 @Entity("carts")
 export default class Cart {
@@ -13,7 +15,7 @@ export default class Cart {
   id: string;
 
   @Column("float")
-  total: number;
+  subtotal: number;
 
   @ManyToMany((type) => Product, {
     eager: true,
@@ -23,4 +25,10 @@ export default class Cart {
 
   @Column()
   userId: string;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }
