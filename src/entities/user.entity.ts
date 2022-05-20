@@ -46,16 +46,15 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToOne((type=>Cart),{eager:true})
+  @OneToOne((type) => Cart, { eager: true })
   @JoinColumn()
-  cart:Cart;
+  cart: Cart;
 
-  
   @OneToMany((type) => Address, (address) => address.user, { eager: true })
   address: Address[];
 
-  @OneToMany(type=>Buys,buys=>buys.user,{eager:true} )
-  buys:Buys[]
+  @OneToMany((type) => Buys, (buys) => buys.user, { eager: true })
+  buys: Buys[];
 
   constructor() {
     if (!this.id) {
