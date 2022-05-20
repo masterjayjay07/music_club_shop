@@ -14,11 +14,12 @@ const removeCartService = async (cartProdId:string,userId:string | (() => string
     }
     
     const cart = user.cart
-    if(cart.product.some(prod=>prod.id===cartProdId)===false){
+
+    if(cart.products.some(prod=>prod.id===cartProdId)===false){
         throw new AppError(404,'Product is not on cart')
     }
-    cart.product = cart.product.filter(prod=>prod.id!==cartProdId)
-    cart.subtotal = cart.product.reduce((acc,prod)=>prod.price+acc,0)
+    cart.products = cart.products.filter(prod=>prod.id!==cartProdId)
+    cart.subtotal = cart.products.reduce((acc,prod)=>prod.price+acc,0)
     
     await cartRepository.save(cart)
 

@@ -17,7 +17,7 @@ export interface IUserCreate {
   user_name: string;
   birth_date: string;
   password: string;
-  is_adm?: boolean;
+  is_adm?: boolean
 }
 
 export interface IUserId {
@@ -89,4 +89,9 @@ export interface ICreateProduct {
   quantity_stock: number;
   rating: number;
   label: string;
+}
+export interface IToken{
+  email: string;
+  is_adm: boolean;
+  sub: string;
 }

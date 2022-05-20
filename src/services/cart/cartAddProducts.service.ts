@@ -1,57 +1,49 @@
-import AppDataSource from "../../data-source";
-import Cart from "../../entities/cart.entity";
-import { Product } from "../../entities/product.entity";
-import { User } from "../../entities/user.entity";
-import { AppError } from "../../errors/AppError";
+import AppDataSource from "../../data-source"
+import Cart from "../../entities/cart.entity"
+import { Product } from "../../entities/product.entity"
+import { User } from "../../entities/user.entity"
+import { AppError } from "../../errors/AppError"
 
-const cartAddProdService = async (product_id: string, userEmail: string) => {
-  const fixedFloat = (value: number) => {
-    return Number.parseFloat(value.toFixed(2));
-  };
-  const userRepository = AppDataSource.getRepository(User);
+interface IAddCart {
+    userId:string | (()=>string);
+    productId:string
+}
 
-  const user = await userRepository.findOne({
-    where: {
-      email: userEmail,
-    },
-  });
+const addCartService = async ({ userId, productId }:IAddCart)=>{
+    const cartRepository = AppDataSource.getRepository(Cart)
+    const userRepository = AppDataSource.getRepository(User)
+    const productRepository = AppDataSource.getRepository(Product)
 
-  const cartRepository = AppDataSource.getRepository(Cart);
 
-  const cart = await cartRepository.findOne({
-    where: {
-      id: user?.cart.id,
-    },
-  });
-
-  const productRepository = AppDataSource.getRepository(Product);
-
-  const productToAdd = await productRepository.findOne({
-    where: {
-      id: product_id,
-    },
-  });
-
-  console.log(productToAdd);
-
-  if (!productToAdd) {
-    throw new AppError(404, "Product not found");
-  }
-
-  if (cart && productToAdd) {
-    if (
-      cart.products.filter((prod) => prod.name === productToAdd.name).length > 0
-    ) {
-      throw new AppError(409, "Product is already in the cart");
+    const users = await userRepository.find()
+    const user = users.find(user=>user.id===userId)
+    if(!user){
+        throw new AppError(404,"User not found")
     }
 
-    cart.products = [...cart.products, productToAdd];
-    cart.subtotal = fixedFloat(cart.subtotal + productToAdd.price);
+    const products = await productRepository.find()
+    const productToAdd = products.find(product=>product.id===productId)
+    if(!productToAdd){
+        throw new AppError(404,"Product not found")
+    }
+    const carts = await cartRepository.find()
+    const cart = carts.find(cart=>cart.id===user?.cart.id)
+    
+    if(cart && productToAdd){
+        
+        if(cart.products.some(prod=>prod.id===productToAdd.id)){
+            
+            throw new AppError(400,'Product is already added to the cart')
+        }else{
+            cart.products = [...cart.products,productToAdd] 
+        }
+        cart.subtotal += productToAdd.price
+        
+        await cartRepository.save(cart)
+        return cart
+    }
+  
+  return
+}
 
-    await cartRepository.save(cart);
-
-    return cart;
-  }
-};
-
-export default cartAddProdService;
+export default addCartService
