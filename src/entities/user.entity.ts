@@ -19,7 +19,7 @@ import Buys from "./buys.entity";
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
-  readonly id: string;
+  id: string;
 
   @Column({ length: 256, nullable: false })
   name: string;
@@ -55,10 +55,4 @@ export class User {
 
   @OneToMany((type) => Buys, (buys) => buys.user, { eager: true })
   buys: Buys[];
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuid();
-    }
-  }
 }

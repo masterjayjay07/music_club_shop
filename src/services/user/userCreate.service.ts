@@ -5,8 +5,8 @@ import bcrypt from "bcryptjs";
 import { AppError } from "../../errors/AppError";
 import Cart from "../../entities/cart.entity";
 import { Address } from "../../entities/address.entity";
-import { v4 as uuid } from "uuid";
 import Buys from "../../entities/buys.entity";
+import { v4 as uuid } from "uuid";
 
 const userCreateService = async ({
   name,
@@ -18,7 +18,10 @@ const userCreateService = async ({
 }: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
   const cartRepository = AppDataSource.getRepository(Cart);
+<<<<<<< HEAD
   const addressRepository = AppDataSource.getRepository(Address);
+=======
+>>>>>>> development
   const buyRepository = AppDataSource.getRepository(Buys);
 
   const users = await userRepository.find();
@@ -39,6 +42,7 @@ const userCreateService = async ({
   const cart = new Cart();
   cart.products = [];
   cart.subtotal = 0;
+<<<<<<< HEAD
 
   cartRepository.create(cart);
   await cartRepository.save(cart);
@@ -53,8 +57,14 @@ const userCreateService = async ({
 
   addressRepository.create(address);
   await addressRepository.save(address);
+=======
+
+  cartRepository.create(cart);
+  await cartRepository.save(cart);
+>>>>>>> development
 
   const user = new User();
+  user.id = uuid();
   user.name = name;
   user.email = email;
   user.user_name = user_name;
@@ -62,8 +72,15 @@ const userCreateService = async ({
   user.is_adm = is_adm;
   user.password = bcrypt.hashSync(password, 8);
   user.cart = cart;
+<<<<<<< HEAD
   user.address = [address];
   user.buys = [];
+=======
+  user.address = [];
+  user.buys = [];
+
+  cart.userId = user.id;
+>>>>>>> development
 
   userRepository.create(user);
   await userRepository.save(user);

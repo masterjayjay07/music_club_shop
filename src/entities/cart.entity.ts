@@ -22,7 +22,7 @@ export default class Cart {
   @JoinTable()
   products: Product[];
 
-  @Column()
+  @Column({ nullable: true })
   userId: string;
 
   constructor() {

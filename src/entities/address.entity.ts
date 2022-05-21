@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryColumn, ManyToOne } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { User } from "./user.entity";
 
@@ -25,8 +25,8 @@ export class Address {
   @Column()
   complement: string;
 
-   @ManyToOne(() => User, (user) => user.address)
-   user: User;
+  @ManyToOne((type) => User, (user) => user.address)
+  user: User;
 
   constructor() {
     if (!this.id) {

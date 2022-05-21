@@ -17,16 +17,16 @@ const addressCreateService = async ({
 
   const userRepository = AppDataSource.getRepository(User);
 
-   const users = await userRepository.find();
+  const users = await userRepository.find();
 
-   const user = users.find((user) => user.id === user_id);
+  const user = users.find((user) => user.id === user_id);
 
   if (!user) {
     throw new AppError(404, "User not found");
   }
 
-   const newAddress = new Address();
-  // newAddress.user = user;
+  const newAddress = new Address();
+  newAddress.user = user;
   newAddress.street = street;
   newAddress.number = number;
   newAddress.cep = cep;
@@ -35,6 +35,7 @@ const addressCreateService = async ({
   newAddress.complement = complement;
 
   addressRepository.create(newAddress);
+
   await addressRepository.save(newAddress);
 
   return newAddress;

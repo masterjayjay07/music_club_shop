@@ -2,11 +2,10 @@ import { Request, Response } from "express";
 import userCreateService from "../../services/user/userCreate.service";
 import "express-async-errors";
 import { AppError, handleError } from "../../errors/AppError";
-import {IUserCreate} from '../../interfaces'
+import { instanceToPlain } from "class-transformer";
 
 const userCreateController = async (req: Request, res: Response) => {
   try {
-
     const { name, email, user_name, birth_date, password, is_adm } = req.body;
 
     const newUser = await userCreateService({
@@ -18,7 +17,7 @@ const userCreateController = async (req: Request, res: Response) => {
       is_adm,
     });
 
-    return res.status(201).send(newUser);
+    return res.status(201).send(instanceToPlain(newUser));
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);
