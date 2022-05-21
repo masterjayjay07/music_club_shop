@@ -13,8 +13,4 @@ const init = async () => {
     console.log(`App está rodando na porta ${process.env.PORT || 3000}`)
   );
 };
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 init();

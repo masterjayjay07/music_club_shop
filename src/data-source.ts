@@ -12,19 +12,11 @@ const AppDataSource =
       })
     : new DataSource({
         type: "postgres",
-<<<<<<< HEAD
-        host: "localhost",
-        port: 5432,
-        username: "brendo", //process.env.POSTGRES_USER,
-        password: "1234", //process.env.POSTGRES_PASSWORD,
-        database: "music_club_shop_db", //process.env.POSTGRES_DB,
-=======
         url: process.env.DATABASE_URL,
         ssl:
           process.env.NODE_ENV === "production"
             ? { rejectUnauthorized: false }
             : false,
->>>>>>> main
         synchronize: false,
         logging: true,
         entities:

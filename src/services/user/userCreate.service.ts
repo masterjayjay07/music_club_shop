@@ -18,10 +18,6 @@ const userCreateService = async ({
 }: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
   const cartRepository = AppDataSource.getRepository(Cart);
-<<<<<<< HEAD
-  const addressRepository = AppDataSource.getRepository(Address);
-=======
->>>>>>> development
   const buyRepository = AppDataSource.getRepository(Buys);
 
   const users = await userRepository.find();
@@ -42,26 +38,9 @@ const userCreateService = async ({
   const cart = new Cart();
   cart.products = [];
   cart.subtotal = 0;
-<<<<<<< HEAD
 
   cartRepository.create(cart);
   await cartRepository.save(cart);
-
-  const address = new Address();
-  address.cep = "";
-  address.complement = "";
-  address.neighborhood = "";
-  address.street = "";
-  address.country = "";
-  address.number = 0;
-
-  addressRepository.create(address);
-  await addressRepository.save(address);
-=======
-
-  cartRepository.create(cart);
-  await cartRepository.save(cart);
->>>>>>> development
 
   const user = new User();
   user.id = uuid();
@@ -72,15 +51,10 @@ const userCreateService = async ({
   user.is_adm = is_adm;
   user.password = bcrypt.hashSync(password, 8);
   user.cart = cart;
-<<<<<<< HEAD
-  user.address = [address];
-  user.buys = [];
-=======
   user.address = [];
   user.buys = [];
 
   cart.userId = user.id;
->>>>>>> development
 
   userRepository.create(user);
   await userRepository.save(user);
