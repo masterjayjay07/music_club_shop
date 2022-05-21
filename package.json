@@ -1,6 +1,9 @@
 {
   "name": "music_club_shop",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.x"
+  },
   "main": "index.js",
   "repository": "git@github.com:masterjayjay07/music_club_shop.git",
   "author": "Johão Pedro <johaopedro99@gmail.com>",
