@@ -18,13 +18,11 @@ const userRouter = Router();
 userRouter.post("/", userCreateController);
 userRouter.post("/login", userLoginController);
 
-userRouter.use(verifyTokenAuthenticationMiddleware);
+//userRouter.use(verifyTokenAuthenticationMiddleware);
 
-
-userRouter.get("/",verifyAdminMiddleware, userListController);
+userRouter.get("/", verifyAdminMiddleware, userListController);
 userRouter.get("/profile", userProfileController);
 userRouter.patch("/:id", userUpdateController);
-
 
 userRouter.use(
   "/:id",
