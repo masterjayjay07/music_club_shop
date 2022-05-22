@@ -12,6 +12,7 @@ const updateProductService = async ({
   quantity_stock,
   rating,
   label,
+  description
 }: IProduct): Promise<Product> => {
   const productRepository = AppDataSource.getRepository(Product);
 
@@ -34,6 +35,8 @@ const updateProductService = async ({
     : product.quantity_stock;
   rating ? (product.rating = rating) : product.rating;
   label ? (product.label = label) : product.label;
+  description ? product.description = description  : product.description
+  
   product.updated_at = new Date();
 
   return productRepository.save(product);

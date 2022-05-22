@@ -14,6 +14,7 @@ const addCartService = async ({ userId, productId }:IAddCart)=>{
     const userRepository = AppDataSource.getRepository(User)
     const productRepository = AppDataSource.getRepository(Product)
 
+    console.log(userId)
 
     const users = await userRepository.find()
     const user = users.find(user=>user.id===userId)
@@ -31,14 +32,11 @@ const addCartService = async ({ userId, productId }:IAddCart)=>{
     
     if(cart && productToAdd){
         const cartProd = cart.products.find(prod=>prod.id===productToAdd.id)
-        if(cartProd){
-            
-            //throw new AppError(400,'Product is already added to the cart')
-        }else{
-           
-            cart.products = [...cart.products,productToAdd] 
-          
-        }
+        // if(cartProd){
+        //     //throw new AppError(400,'Product is already added to the cart')
+        // }else{
+        // }
+        cart.products = [...cart.products,productToAdd] 
         cart.subtotal += productToAdd.price
         
         await cartRepository.save(cart)

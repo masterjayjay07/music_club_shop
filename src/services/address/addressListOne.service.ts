@@ -5,21 +5,23 @@ import { AppError } from "../../errors/AppError";
 
 const addressListOneService = async (user_id: string) => {
   const addressRepository = AppDataSource.getRepository(Address);
-  const userRepository = AppDataSource.getRepository(User);
+  //const userRepository = AppDataSource.getRepository(User);
 
   const allAddress = await addressRepository.find();
-  const allUser = await userRepository.find();
 
-  const actualUser = allUser.find((element) => element.id === user_id);
+  const address = allAddress.find(address=>address.id===user_id)
+  return address
+  //const allUser = await userRepository.find();
 
-  if (!actualUser) {
-    throw new AppError(404, "No user was found");
-  }
+// const actualUser = allUser.find((element) => element.id === user_id);
 
-  if (actualUser.address.length === 0) {
-    throw new AppError(404, "No address was found");
-  }
-  return actualUser.address;
+  // if (!actualUser) {
+  //   throw new AppError(404, "No user was found");
+  // }
+  // if (actualUser.address.length === 0) {
+  //   throw new AppError(404, "No address was found");
+  // }
+  // return actualUser.address;
 };
 
 export default addressListOneService;

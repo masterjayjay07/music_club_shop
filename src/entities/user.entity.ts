@@ -33,6 +33,9 @@ export class User {
   @Column()
   birth_date: string;
 
+  @Column()
+  tel: string;
+
   @Column({ default: false })
   is_adm: boolean;
 
@@ -50,9 +53,15 @@ export class User {
   @JoinColumn()
   cart: Cart;
 
-  @OneToMany((type) => Address, (address) => address.user, { eager: true })
-  address: Address[];
+  // @OneToMany((type) => Address, (address) => address.user, { eager: true })
+  // address: Address[];
 
-  @OneToMany((type) => Buys, (buys) => buys.user, { eager: true })
-  buys: Buys[];
+  // @OneToMany((type) => Buys, (buys) => buys.user, { eager: true })
+  // buys: Buys[];
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }

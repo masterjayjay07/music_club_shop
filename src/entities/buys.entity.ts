@@ -18,8 +18,8 @@ import { User } from "./user.entity";
     @Column("float")
     total?:number;
 
-    @ManyToOne(type=>User,user=>user.buys)
-    user:User
+    // @ManyToOne(type=>User,user=>user.buys)
+    // user:User
     
     @ManyToMany(type=>Product,{eager:true})
     @JoinTable()

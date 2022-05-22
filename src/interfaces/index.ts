@@ -8,6 +8,7 @@ export interface IAddressCreate {
   neighborhood: string;
   country: string;
   complement: string;
+  city:string
 }
 
 export interface IUserCreate {
@@ -16,7 +17,8 @@ export interface IUserCreate {
   user_name: string;
   birth_date: string;
   password: string;
-  is_adm?: boolean
+  is_adm?: boolean;
+  tel:string
 }
 
 export interface IUserId {
@@ -72,6 +74,7 @@ export interface IProduct {
   quantity_stock: number;
   rating: number;
   label: string;
+  description:string
 }
 
 export interface IProductId {
@@ -93,6 +96,7 @@ export interface ICreateProduct {
   quantity_stock: number;
   rating: number;
   label: string;
+  description:string
 }
 export interface IToken{
   email: string;

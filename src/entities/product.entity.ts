@@ -33,6 +33,9 @@ export class Product {
   @Column()
   label: string;
 
+  @Column()
+  description:string;
+
   @CreateDateColumn()
   create_at: Date;
 

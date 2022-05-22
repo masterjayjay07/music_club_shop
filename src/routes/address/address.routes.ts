@@ -1,17 +1,45 @@
 import { Router } from "express";
-
+import { expressYupMiddleware } from "express-yup-middleware";
 import addressCreateController from "../../controllers/address/addressCreate.controller";
 import addressDeleteController from "../../controllers/address/addressDelete.controller";
 import addressListController from "../../controllers/address/addressListController";
 import addressListOneController from "../../controllers/address/addressListOneController";
 import addressUpdateController from "../../controllers/address/addressUpdate.controller";
 
+import authTokenMiddleware from "../../middlewares/authToken.middleware";
+import verifyAdminMiddleware from "../../middlewares/verifyAdmin.middleware";
+import verifyIfItsAdmOrOwnerMiddleware from "../../middlewares/verifyIfItsAdmOrOwner.middleware";
+
 const addressRoutes = Router();
 
-addressRoutes.post("/", addressCreateController);
-addressRoutes.get("/", addressListController);
-addressRoutes.get("/:user_id", addressListOneController);
-addressRoutes.patch("/:id", addressUpdateController);
-addressRoutes.delete("/:id", addressDeleteController);
+addressRoutes.post("/", authTokenMiddleware, addressCreateController);
+
+addressRoutes.get(
+  "/",
+  authTokenMiddleware,
+  verifyAdminMiddleware,
+  addressListController
+);
+
+addressRoutes.get(
+  "/:user_id",
+  authTokenMiddleware,
+  verifyIfItsAdmOrOwnerMiddleware,
+  addressListOneController
+);
+
+addressRoutes.patch(
+  "/:id",
+  authTokenMiddleware,
+  verifyIfItsAdmOrOwnerMiddleware,
+  addressUpdateController
+);
+
+addressRoutes.delete(
+  "/:id",
+  authTokenMiddleware,
+  verifyIfItsAdmOrOwnerMiddleware,
+  addressDeleteController
+);
 
 export default addressRoutes;

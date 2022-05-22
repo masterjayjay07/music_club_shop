@@ -4,7 +4,7 @@ import addressCreateService from "../../services/address/addressCreate.service";
 
 const addressCreateController = async (req: Request, res: Response) => {
   try {
-    const { user_id, street, number, cep, neighborhood, country, complement } =
+    const { user_id, street, number, cep, neighborhood, country, complement,city } =
       req.body;
     const address = await addressCreateService({
       user_id,
@@ -14,6 +14,7 @@ const addressCreateController = async (req: Request, res: Response) => {
       neighborhood,
       country,
       complement,
+      city
     });
 
     return res
