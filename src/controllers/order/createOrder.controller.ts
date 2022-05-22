@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { IToken } from "../../interfaces";
 import createOrderService from "../../services/order/createOrder.service";
 import jwt from "jsonwebtoken";
+import { instanceToPlain } from "class-transformer";
 
 const createOrderController = async (req: Request, res: Response) => {
   const { 
@@ -36,7 +37,7 @@ const createOrderController = async (req: Request, res: Response) => {
     city
   });
 
-  return res.status(201).json(result);
+  return res.status(201).json(instanceToPlain(result) );
 };
 
 export default createOrderController;

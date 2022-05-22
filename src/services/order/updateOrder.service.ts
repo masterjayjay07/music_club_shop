@@ -16,7 +16,7 @@ const orderUpdateService = async ({ status, id }: IOrderUp): Promise<Order> => {
   const order = await orderRepository.findOne({ where: { id } });
 
   if (!order) {
-    throw new AppError(409, "Not found any order with this id");
+    throw new AppError(404, "Not found any order with this id");
   }
 
   status ? (order.status = status) : order.status;

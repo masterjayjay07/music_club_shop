@@ -3,6 +3,7 @@ import orderListUserOneService from "../../services/order/listOrderOneUser.servi
 import { AppError, handleError } from "../../errors/AppError";
 import jwt from 'jsonwebtoken'
 import { IToken } from "../../interfaces";
+import { instanceToPlain } from "class-transformer";
 
 const orderListProfileController = async (req: Request, res: Response) => {
   try {
@@ -14,7 +15,7 @@ const orderListProfileController = async (req: Request, res: Response) => {
     const { email,sub,is_adm} = decoded;
     const orders = await orderListUserOneService(sub);
 
-    return res.json(orders);
+    return res.json(instanceToPlain(orders) );
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

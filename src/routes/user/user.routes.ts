@@ -16,6 +16,7 @@ import verifyUserExistanceMiddleware from "../../middlewares/verifyUserExistance
 import { expressYupMiddleware } from "express-yup-middleware";
 import validatorUserCreate from "../../schemas/user/create.validation";
 import validatorUserUpdate from "../../schemas/user/update.validation";
+import validatorUserLogin from "../../schemas/user/login.validation";
 
 const userRouter = Router();
 userRouter.post(
@@ -23,7 +24,9 @@ userRouter.post(
   expressYupMiddleware({ schemaValidator: validatorUserCreate }),
   userCreateController
 );
-userRouter.post("/login", userLoginController);
+userRouter.post("/login", 
+  expressYupMiddleware({ schemaValidator: validatorUserLogin }),
+  userLoginController);
 
 userRouter.get(
   "/",

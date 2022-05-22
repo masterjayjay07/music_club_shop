@@ -10,7 +10,7 @@ const orderListUserOneService = async (id: string) => {
   const order = await orderRepository.find({ where: { userId: id } });
 
   if (order.length === 0) {
-    throw new AppError(509, "Order does not exist");
+    throw new AppError(404, "Order does not exist");
   }
 
   return order;
