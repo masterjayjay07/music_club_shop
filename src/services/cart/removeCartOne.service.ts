@@ -4,7 +4,7 @@ import Cart from "../../entities/cart.entity"
 import { User } from "../../entities/user.entity"
 import { AppError } from "../../errors/AppError"
 
-const removeCartService = async (cartProdId:string,userId:string | (() => string) )=>{
+const removeOneCartService = async (cartProdId:string,userId:string | (() => string) )=>{
     const cartRepository = AppDataSource.getRepository(Cart)
     const userRepository = AppDataSource.getRepository(User)
     const cartProductRepository = AppDataSource.getRepository(CartProduct)
@@ -40,4 +40,4 @@ const removeCartService = async (cartProdId:string,userId:string | (() => string
 
 }
 
-export default removeCartService
+export default removeOneCartService

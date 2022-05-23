@@ -13,7 +13,7 @@ const authTokenMiddleware = (
     return handleError(errorCatched, res);
   }
   token = token.replace("Bearer ", "");
-  const secretKey = process.env.POSTGRES_SECRET_KEY || '';
+  const secretKey = process.env.POSTGRES_SECRET_KEY || 'secret';
 
   jwt.verify(token as string, secretKey as string, (err: any, decoded: any) => {
     if (err) {
