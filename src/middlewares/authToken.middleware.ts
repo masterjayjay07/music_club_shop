@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError, handleError } from "../errors/AppError";
 import jwt from "jsonwebtoken";
-
+import { IToken } from "../interfaces";
 const authTokenMiddleware = (
   req: Request,
   res: Response,
@@ -13,7 +13,7 @@ const authTokenMiddleware = (
     return handleError(errorCatched, res);
   }
   token = token.replace("Bearer ", "");
-  const secretKey = process.env.POSTGRES_SECRET_KEY || '';
+  const secretKey = process.env.POSTGRES_SECRET_KEY || 'secret';
 
   jwt.verify(token as string, secretKey as string, (err: any, decoded: any) => {
     if (err) {
@@ -22,8 +22,14 @@ const authTokenMiddleware = (
       return;
     }
   });
-  const decoded = jwt.verify(token, secretKey);
+  const decoded = jwt.verify(token, secretKey) as IToken;
   const { sub } = decoded;
+  
+  req.user = {
+    id:sub as string,
+    email:decoded.email 
+  }
+  
 
   next();
 };

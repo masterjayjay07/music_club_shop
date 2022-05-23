@@ -17,7 +17,7 @@ const verifyIfItsAdmOrOwnerMiddleware = (
   let token: string = req.headers.authorization || "";
   token = token.replace("Bearer ", "");
 
-  const secretKey = process.env.POSTGRES_SECRET_KEY || "";
+  const secretKey = process.env.POSTGRES_SECRET_KEY || "secret";
   const decoded = jwt.verify(token, secretKey) as IToken;
 
   const { sub } = decoded;

@@ -8,13 +8,14 @@ const addCartController = async (req:Request,res:Response)=>{
     try {
         const { productId } = req.body
 
-        let token = req.headers.authorization || ''
-        token = token?.replace('Bearer ','')
-        const secret = process.env.POSTGRES_SECRET_KEY || ''
-        const decoded = jwt.verify(token, secret) as IToken
-        const {sub} =decoded
-        const userId = sub || ''
-        
+        // let token = req.headers.authorization || ''
+        // token = token?.replace('Bearer ','')
+        // const secret = process.env.POSTGRES_SECRET_KEY || 'secret'
+        // const decoded = jwt.verify(token, secret) as IToken
+        // const {sub} =decoded
+        // const userId = sub || ''
+        const userId = req.user.id
+
         const cartProductCreated = await addCartService({ userId, productId }) 
         
         res.status(201).json(cartProductCreated)

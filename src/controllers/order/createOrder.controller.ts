@@ -17,12 +17,13 @@ const createOrderController = async (req: Request, res: Response) => {
     city
   } =req.body;
 
-  let token = req.headers.authorization || "";
-  token = token.replace("Bearer ", "");
-  const secretKey = process.env.POSTGRES_SECRET_KEY || "";
-  const decoded = jwt.verify(token, secretKey) as IToken;
-  const { sub } = decoded;
-  const userId = sub;
+  // let token = req.headers.authorization || "";
+  // token = token.replace("Bearer ", "");
+  // const secretKey = process.env.POSTGRES_SECRET_KEY || "secret";
+  // const decoded = jwt.verify(token, secretKey) as IToken;
+  // const { sub } = decoded;
+  // const userId = sub;
+  const userId = req.user.id
 
   const result = await createOrderService({
     userId,
