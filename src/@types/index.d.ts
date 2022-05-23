@@ -7,6 +7,10 @@ declare global {
       userEmail: { email: string };
       newUser: IUserCreate;
       userId: string;
+      user: {
+        id: string;
+        email:string;
+      };
     }
   }
 }
