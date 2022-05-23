@@ -54,39 +54,33 @@ const createOrderService = async ({
   const cart = await cartRepository.findOne({where:{id:user.cart.id}})
   
   if(cart && user){
-    const buy = new Buys()
+    const copyOfProducts = [...cart.products]
+
     
-    // for(let i=0;i<cart.products.length;i++){
-    //   console.log(i)
-    //   console.log(cart.products[i])
-    //   buy.products[i].buyId=cart.products[i].cartId
-    //   buy.products[i].id=cart.products[i].id
-    //   buy.products[i].buy.id=cart.products[i].cart.id
-    //   buy.products[i].buy.total=cart.products[i].cart.subtotal
-    //   buy.products[i].product=cart.products[i].product
-    //   buy.products[i].quantity=cart.products[i].quantity
-    //   buy.products[i].productId=cart.products[i].productId
-
-    // }
-
-    //buy.total = cart.subtotal
-    //buysRepository.create(buy)
-    //await buysRepository.save(buy)
 
 
+    const buy = buysRepository.create({
+      total:cart.subtotal,
+      products:copyOfProducts
+    })
+    await buysRepository.save(buy)
+    
     for(let i=0; i<cart.products.length ;i++){ 
-      const buyInstance = buyProductRepository.create({
-        buyId:cart.id,
+      console.log(cart.products[i])
+      const tobeSaved = buyProductRepository.create({
+        buyId:buy.id,
         productId:cart.products[i].productId,
         quantity:cart.products[i].quantity,
         product:cart.products[i].product
-      })      
-      await buyProductRepository.save(buyInstance)
+      })
+      await buyProductRepository.save(tobeSaved)
     }
+
 
 
     cart.products =[]
     cart.subtotal = 0
+    
     cartProductRepository.create({
       cartId:cart.id,
       
@@ -124,7 +118,7 @@ const createOrderService = async ({
       });
       
       order.user = updated_user
-      //order.buys = buy
+      order.buys = buy
       order.address = address
 
       await orderRepository.save(order);

@@ -30,9 +30,6 @@ import {
 
     @Column()
     quantity: number;
-
-    @Column()
-    orderId:string;
   
     constructor() {
       if (!this.id) {

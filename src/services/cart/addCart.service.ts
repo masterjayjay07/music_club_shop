@@ -6,7 +6,7 @@ import { User } from "../../entities/user.entity"
 import { AppError } from "../../errors/AppError"
 
 interface IAddCart {
-    userId:string | (()=>string);
+    userId:string 
     productId:string
 }
 
@@ -51,12 +51,15 @@ const addCartService = async ({ userId, productId }:IAddCart)=>{
                 quantity:1,
                 productId,
                 cartId:cart.id,
-                product:productToAdd            
+                product:productToAdd             
             })
-            cart.subtotal = cart?.products.reduce((acc,prod)=>acc+prod.product.price,0)
+            cart.subtotal = cart?.products.reduce((acc,prod)=>acc+prod.product.price*prod.quantity,0)
             await cartRepository.save(cart)
             await cartProductRepository.save(productAdded)
-            return productAdded
+            
+            return cartRepository.findOne({where:{userId}})
+
+            
         }
     }
     return 
