@@ -1,8 +1,12 @@
 import { Router } from "express";
+
 import addCartController from "../../controllers/cart/addCart.controller";
 import cartListController from "../../controllers/cart/cartList.controller";
-import cartRemove from "../../controllers/cart/cartRemove.controller";
 import cartListOneController from "../../controllers/cart/cartListOne.controller";
+
+import cartRemoveOne from "../../controllers/cart/cartRemoveOne.controller";
+import removeCartController from "../../controllers/cart/cartRemove.controller";
+
 import authTokenMiddleware from "../../middlewares/authToken.middleware";
 import cartListProfileController from "../../controllers/cart/cartListProfile.controller";
 
@@ -39,7 +43,15 @@ cartRouter.delete(
   "/:cartProdId",
   authTokenMiddleware,
   verifyIfItsAdmOrOwnerMiddleware,
-  cartRemove
+  cartRemoveOne
+);
+
+
+cartRouter.delete(
+  "/removeProd/:cartProdId",
+  authTokenMiddleware,
+  verifyIfItsAdmOrOwnerMiddleware,
+  removeCartController
 );
 
 export default cartRouter;

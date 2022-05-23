@@ -53,7 +53,7 @@ const addCartService = async ({ userId, productId }:IAddCart)=>{
                 cartId:cart.id,
                 product:productToAdd             
             })
-            cart.subtotal = cart?.products.reduce((acc,prod)=>acc+prod.product.price*prod.quantity,0)
+            cart.subtotal = productAdded.product.price
             await cartRepository.save(cart)
             await cartProductRepository.save(productAdded)
             

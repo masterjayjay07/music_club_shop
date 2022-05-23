@@ -10,7 +10,7 @@ const addCartController = async (req:Request,res:Response)=>{
 
         let token = req.headers.authorization || ''
         token = token?.replace('Bearer ','')
-        const secret = process.env.POSTGRES_SECRET_KEY || ''
+        const secret = process.env.POSTGRES_SECRET_KEY || 'secret'
         const decoded = jwt.verify(token, secret) as IToken
         const {sub} =decoded
         const userId = sub || ''

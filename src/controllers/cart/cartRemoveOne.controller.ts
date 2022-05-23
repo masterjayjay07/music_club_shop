@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { AppError, handleError } from "../../errors/AppError"
-import removeCartService from "../../services/cart/removeProdCart.service"
+import removeOneCart from "../../services/cart/removeCartOne.service"
 import jwt from 'jsonwebtoken'
 
 const removeCartController = async (req:Request,res:Response)=>{
@@ -14,7 +14,7 @@ const removeCartController = async (req:Request,res:Response)=>{
         const {sub} =decoded
         const userId = sub || ''
 
-        await removeCartService(cartProdId,userId)
+        await removeOneCart(cartProdId,userId)
 
         res.status(204).json()
     } catch (error) {
