@@ -24,7 +24,7 @@ const authTokenMiddleware = (
   });
   const decoded = jwt.verify(token, secretKey);
   const { sub } = decoded;
-  
+
   next();
 };
 export default authTokenMiddleware;

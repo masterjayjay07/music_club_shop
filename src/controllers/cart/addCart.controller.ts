@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import { AppError, handleError } from "../../errors/AppError"
 import addCartService from "../../services/cart/addCart.service"
 import jwt  from "jsonwebtoken"
+import { IToken } from "../../interfaces"
 
 const addCartController = async (req:Request,res:Response)=>{
     try {
@@ -10,11 +11,11 @@ const addCartController = async (req:Request,res:Response)=>{
         let token = req.headers.authorization || ''
         token = token?.replace('Bearer ','')
         const secret = process.env.POSTGRES_SECRET_KEY || ''
-        const decoded = jwt.verify(token, secret)
+        const decoded = jwt.verify(token, secret) as IToken
         const {sub} =decoded
         const userId = sub || ''
         
-        const cartProductCreated = await addCartService({ userId, productId })
+        const cartProductCreated = await addCartService({ userId, productId }) 
         
         res.status(201).json(cartProductCreated)
     } catch (error) {

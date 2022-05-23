@@ -4,9 +4,7 @@ import { User } from "../../entities/user.entity";
 import bcrypt from "bcryptjs";
 import { AppError } from "../../errors/AppError";
 import Cart from "../../entities/cart.entity";
-import { Address } from "../../entities/address.entity";
-import Buys from "../../entities/buys.entity";
-import { v4 as uuid } from "uuid";
+
 
 const userCreateService = async ({
   name,
@@ -14,51 +12,49 @@ const userCreateService = async ({
   user_name,
   birth_date,
   password,
+  tel,
   is_adm = false,
 }: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
   const cartRepository = AppDataSource.getRepository(Cart);
-  const buyRepository = AppDataSource.getRepository(Buys);
-
+  
+  console.log("entrouuuu")
   const users = await userRepository.find();
-
   const emailAlreadyExists = users.find((user) => user.email === email);
   const userNameAlreadyExists = users.find(
     (user) => user.user_name === user_name
-  );
+    );
 
   if (emailAlreadyExists) {
     throw new AppError(409, "Email already exists");
   }
-
+  
   if (userNameAlreadyExists) {
     throw new AppError(409, "Username already exists");
   }
-
+  const user = new User();
   const cart = new Cart();
   cart.products = [];
   cart.subtotal = 0;
-
+  cart.userId = user.id
+  
+  console.log(cart)
+  
   cartRepository.create(cart);
   await cartRepository.save(cart);
-
-  const user = new User();
-  user.id = uuid();
+  
   user.name = name;
   user.email = email;
+  user.tel = tel
   user.user_name = user_name;
   user.birth_date = birth_date;
   user.is_adm = is_adm;
   user.password = bcrypt.hashSync(password, 8);
-  user.cart = cart;
-  user.address = [];
-  user.buys = [];
-
-  cart.userId = user.id;
-
+  user.cart = cart
+  
   userRepository.create(user);
   await userRepository.save(user);
-
+  
   return user;
 };
 

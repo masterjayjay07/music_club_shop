@@ -1,18 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 import AppDataSource from "../data-source";
 import { User } from "../entities/user.entity";
-import { AppError } from "../errors/AppError";
+import { AppError, handleError } from "../errors/AppError";
 import { errorMiddleware } from "./error.middleware";
 import jwt from 'jsonwebtoken'
 import {IToken} from '../interfaces'
 
 
 const verifyAdminMiddleware = async (
-  error: Error,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+
   const repository = AppDataSource.getRepository(User);
 
   let token = req.headers.authorization || ''
@@ -27,8 +27,10 @@ const verifyAdminMiddleware = async (
 
   if (user?.is_adm === false) {
     const err = new AppError(401, "You need to be admin");
-    errorMiddleware(err, req, res, next);
+    handleError( err, res);
+    return
   }
+
 
   next();
 };

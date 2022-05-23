@@ -1,23 +1,21 @@
 import { Request, Response } from "express";
-import userListOneService from "../../services/user/userListOne.service";
+import orderListUserOneService from "../../services/order/listOrderOneUser.service";
 import { AppError, handleError } from "../../errors/AppError";
 import jwt from 'jsonwebtoken'
+import { IToken } from "../../interfaces";
 import { instanceToPlain } from "class-transformer";
 
-const userProfileController = async (req: Request, res: Response) => {
+const orderListProfileController = async (req: Request, res: Response) => {
   try {
     let token = req.headers.authorization || ''
     token = token?.replace('Bearer ','')
     const secretKey = process.env.POSTGRES_SECRET_KEY || ''
 
-    const decoded = jwt.verify(token, secretKey);
-    const { sub } = decoded;
+    const decoded = jwt.verify(token, secretKey) as IToken
+    const { email,sub,is_adm} = decoded;
+    const orders = await orderListUserOneService(sub);
 
-    const id = sub || ''
-
-    const user = await userListOneService(id);
-
-    return res.status(200).json(instanceToPlain(user) );
+    return res.json(instanceToPlain(orders) );
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);
@@ -25,4 +23,4 @@ const userProfileController = async (req: Request, res: Response) => {
   }
 };
 
-export default userProfileController;
+export default orderListProfileController

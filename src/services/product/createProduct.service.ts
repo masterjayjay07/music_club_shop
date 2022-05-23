@@ -12,6 +12,7 @@ const createProductService = async ({
   quantity_stock,
   rating,
   label,
+  description
 }: ICreateProduct) => {
   const productRepository = AppDataSource.getRepository(Product);
 
@@ -33,6 +34,7 @@ const createProductService = async ({
     quantity_stock,
     rating,
     label,
+    description
   });
 
   await productRepository.save(newProduct);
