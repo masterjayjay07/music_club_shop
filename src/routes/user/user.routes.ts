@@ -13,24 +13,53 @@ import verifyAdminMiddleware from "../../middlewares/verifyAdmin.middleware";
 import verifyIfItsAdmOrOwnerMiddleware from "../../middlewares/verifyIfItsAdmOrOwner.middleware";
 import verifyUserExistanceMiddleware from "../../middlewares/verifyUserExistance.middleware";
 
+import { expressYupMiddleware } from "express-yup-middleware";
+import validatorUserCreate from "../../schemas/user/create.validation";
+import validatorUserUpdate from "../../schemas/user/update.validation";
+import validatorUserLogin from "../../schemas/user/login.validation";
+
 const userRouter = Router();
+userRouter.post(
+  "/",
+  expressYupMiddleware({ schemaValidator: validatorUserCreate }),
+  userCreateController
+);
+userRouter.post("/login", 
+  expressYupMiddleware({ schemaValidator: validatorUserLogin }),
+  userLoginController);
 
-userRouter.post("/", userCreateController);
-userRouter.post("/login", userLoginController);
-
-//userRouter.use(verifyTokenAuthenticationMiddleware);
-
-userRouter.get("/", verifyAdminMiddleware, userListController);
-userRouter.get("/profile", userProfileController);
-userRouter.patch("/:id", userUpdateController);
-
-userRouter.use(
-  "/:id",
-  verifyUserExistanceMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware
+userRouter.get(
+  "/",
+  verifyTokenAuthenticationMiddleware,
+  verifyAdminMiddleware,
+  userListController
+);
+userRouter.get(
+  "/profile",
+  verifyTokenAuthenticationMiddleware,
+  userProfileController
 );
 
-userRouter.get("/:id", userListOneController);
-userRouter.delete("/:id", userDeleteSelfController);
+userRouter.get(
+  "/:id",
+  verifyTokenAuthenticationMiddleware,
+  verifyIfItsAdmOrOwnerMiddleware,
+  userListOneController
+);
+
+userRouter.patch(
+  "/:id",
+  verifyTokenAuthenticationMiddleware,
+  verifyIfItsAdmOrOwnerMiddleware,
+  expressYupMiddleware({ schemaValidator: validatorUserUpdate }),
+  userUpdateController
+);
+
+userRouter.delete(
+  "/:id",
+  verifyTokenAuthenticationMiddleware,
+  verifyIfItsAdmOrOwnerMiddleware,
+  userDeleteSelfController
+);
 
 export default userRouter;

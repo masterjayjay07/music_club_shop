@@ -20,13 +20,16 @@ export class Address {
   neighborhood: string;
 
   @Column()
+  city:string;
+
+  @Column()
   country: string;
 
   @Column()
   complement: string;
 
-  @ManyToOne((type) => User, (user) => user.address)
-  user: User;
+  // @ManyToOne((type) => User, (user) => user.address)
+  // user: User;
 
   constructor() {
     if (!this.id) {

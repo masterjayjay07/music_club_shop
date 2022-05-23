@@ -1,6 +1,7 @@
 import { AppError, handleError } from "../../errors/AppError";
 import { Request, Response } from "express";
 import orderDeleteService from "../../services/order/deleteOrder.service";
+import { instanceToPlain } from "class-transformer";
 
 const orderDeleteController = async (req: Request, res: Response) => {
   const { id } = req.params;

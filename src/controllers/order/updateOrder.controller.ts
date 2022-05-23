@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import orderUpdateService from "../../services/order/updateOrder.service";
 import { AppError, handleError } from "../../errors/AppError";
+import { instanceToPlain } from "class-transformer";
 
 const orderUpdateController = async (request: Request, response: Response) => {
   const { id } = request.params;
@@ -12,7 +13,7 @@ const orderUpdateController = async (request: Request, response: Response) => {
       status,
     });
 
-    return response.json(order);
+    return response.json(instanceToPlain(order));
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, response);
