@@ -17,11 +17,13 @@ const userCreateService = async ({
 }: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
   const cartRepository = AppDataSource.getRepository(Cart);
+  
+  console.log("entrouuuu")
   const users = await userRepository.find();
   const emailAlreadyExists = users.find((user) => user.email === email);
   const userNameAlreadyExists = users.find(
     (user) => user.user_name === user_name
-  );
+    );
 
   if (emailAlreadyExists) {
     throw new AppError(409, "Email already exists");
@@ -35,7 +37,9 @@ const userCreateService = async ({
   cart.products = [];
   cart.subtotal = 0;
   cart.userId = user.id
-
+  
+  console.log(cart)
+  
   cartRepository.create(cart);
   await cartRepository.save(cart);
   

@@ -24,14 +24,14 @@ productRouter.post(
 );
 productRouter.get(
   "/",
-  verifyTokenAuthenticationMiddleware,
-  verifyAdminMiddleware,
+//   verifyTokenAuthenticationMiddleware,
+//   verifyAdminMiddleware,
   listProductsController
 );
 productRouter.get(
   "/:id",
-  verifyTokenAuthenticationMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
+//   verifyTokenAuthenticationMiddleware,
+//   verifyIfItsAdmOrOwnerMiddleware,
   listOneProductController
 );
 productRouter.patch(

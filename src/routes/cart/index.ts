@@ -1,6 +1,5 @@
 import { Router } from "express";
 import addCartController from "../../controllers/cart/addCart.controller";
-import cartUpdateController from "../../controllers/cart/cartUpdate.controller";
 import cartListController from "../../controllers/cart/cartList.controller";
 import cartRemove from "../../controllers/cart/cartRemove.controller";
 import cartListOneController from "../../controllers/cart/cartListOne.controller";
@@ -35,12 +34,6 @@ cartRouter.get(
   authTokenMiddleware,
   verifyIfItsAdmOrOwnerMiddleware,
   cartListOneController
-);
-cartRouter.patch(
-  "/:cartProdId",
-  authTokenMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
-  cartUpdateController
 );
 cartRouter.delete(
   "/:cartProdId",
