@@ -60,7 +60,6 @@ describe("Address CRUD  - API ROUTE", () => {
     headers.token = `Bearer ${resLogin.body.token}`
 
     const response = await request(app).post('/address').send({user_id:userData.id,...addressRequestBody}).set('Authorization',headers.token)
-    console.log(response.body);
     
     addressId.id = response.body.address.id
 

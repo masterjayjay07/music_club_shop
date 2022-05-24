@@ -16,14 +16,15 @@ const userProfileController = async (req: Request, res: Response) => {
     // const id = sub || ''
 
     const id =req.user.id
-
-    console.log(id);
     
     const user = await userListOneService(id);
 
     return res.status(200).json(instanceToPlain(user) );
+
   } catch (err) {
+
     if (err instanceof AppError) {
+      
       handleError(err, res);
     }
   }
