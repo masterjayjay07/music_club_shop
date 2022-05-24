@@ -6,15 +6,19 @@ import { instanceToPlain } from "class-transformer";
 
 const userProfileController = async (req: Request, res: Response) => {
   try {
-    let token = req.headers.authorization || ''
-    token = token?.replace('Bearer ','')
-    const secretKey = process.env.POSTGRES_SECRET_KEY || 'secret'
+    // let token = req.headers.authorization || ''
+    // token = token?.replace('Bearer ','')
+    // const secretKey = process.env.POSTGRES_SECRET_KEY || 'secret'
 
-    const decoded = jwt.verify(token, secretKey);
-    const { sub } = decoded;
+    // const decoded = jwt.verify(token, secretKey);
+    // const { sub } = decoded;
 
-    const id = sub || ''
+    // const id = sub || ''
 
+    const id =req.user.id
+
+    console.log(id);
+    
     const user = await userListOneService(id);
 
     return res.status(200).json(instanceToPlain(user) );
