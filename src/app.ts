@@ -1,10 +1,9 @@
 import { errorMiddleware } from "../src/middlewares/error.middleware";
 import "express-async-errors";
 import "reflect-metadata";
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import cors from "cors";
 import routes from "./routes";
-import { AppError } from "./errors/AppError";
 
 const app = express();
 

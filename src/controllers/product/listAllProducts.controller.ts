@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import listProductsService from "../../services/product/listProducts.service";
-import { AppError, handleError } from "../../errors/AppError";
 
 const listProductsController = async (req: Request, res: Response) => {
   const page: number = Number(req.query.page);

@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryColumn, ManyToOne } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { User } from "./user.entity";
 
 @Entity("address")
 export class Address {
@@ -20,16 +19,13 @@ export class Address {
   neighborhood: string;
 
   @Column()
-  city:string;
+  city: string;
 
   @Column()
   country: string;
 
   @Column()
   complement: string;
-
-  // @ManyToOne((type) => User, (user) => user.address)
-  // user: User;
 
   constructor() {
     if (!this.id) {

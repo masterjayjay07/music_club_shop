@@ -5,7 +5,7 @@ import userDeleteService from "../../services/user/userDeleteSelf.service";
 const userDeleteController = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const user = await userDeleteService({ id });
+    await userDeleteService({ id });
 
     return res.status(204).json({ message: "User deleted with sucess!" });
   } catch (err) {

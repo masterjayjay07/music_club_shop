@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { expressYupMiddleware } from "express-yup-middleware";
 import addressCreateController from "../../controllers/address/addressCreate.controller";
 import addressDeleteController from "../../controllers/address/addressDelete.controller";
 import addressListController from "../../controllers/address/addressListController";

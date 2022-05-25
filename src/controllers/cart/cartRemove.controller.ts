@@ -1,26 +1,20 @@
-import { Request, Response } from "express"
-import { AppError, handleError } from "../../errors/AppError"
-import removeCartService from "../../services/cart/removeProdCart.service"
-import jwt from 'jsonwebtoken'
+import { Request, Response } from "express";
+import { AppError, handleError } from "../../errors/AppError";
+import removeCartService from "../../services/cart/removeProdCart.service";
 
-const removeCartController = async (req:Request,res:Response)=>{
-    try {
-        const {cartProdId}=req.params
+const removeCartController = async (req: Request, res: Response) => {
+  try {
+    const { cartProdId } = req.params;
 
-        let token = req.headers.authorization || ''
-        token = token?.replace('Bearer ','')
-        const secret = process.env.POSTGRES_SECRET_KEY || 'secret'
-        const decoded = jwt.verify(token, secret)
-        const {sub} =decoded
-        const userId = sub || ''
+    const userId = req.user.id;
 
-        await removeCartService(cartProdId,userId)
+    await removeCartService(cartProdId, userId);
 
-        res.status(204).json()
-    } catch (error) {
-        if(error instanceof AppError){
-            handleError(error,res)
-        }
+    res.status(204).json();
+  } catch (error) {
+    if (error instanceof AppError) {
+      handleError(error, res);
     }
-}
-export default removeCartController
+  }
+};
+export default removeCartController;

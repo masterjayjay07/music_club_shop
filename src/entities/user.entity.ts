@@ -4,17 +4,12 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
-  JoinTable,
   OneToOne,
   JoinColumn,
 } from "typeorm";
 import { Exclude } from "class-transformer";
 import { v4 as uuid } from "uuid";
-import { Address } from "./address.entity";
 import Cart from "./cart.entity";
-import Order from "./order.entity";
-import Buys from "./buys.entity";
 
 @Entity("users")
 export class User {
@@ -52,12 +47,6 @@ export class User {
   @OneToOne((type) => Cart, { eager: true })
   @JoinColumn()
   cart: Cart;
-
-  // @OneToMany((type) => Address, (address) => address.user, { eager: true })
-  // address: Address[];
-
-  // @OneToMany((type) => Buys, (buys) => buys.user, { eager: true })
-  // buys: Buys[];
 
   constructor() {
     if (!this.id) {

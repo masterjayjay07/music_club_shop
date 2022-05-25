@@ -12,7 +12,7 @@ const addressCreateService = async ({
   neighborhood,
   country,
   complement,
-  city
+  city,
 }: IAddressCreate) => {
   const addressRepository = AppDataSource.getRepository(Address);
 
@@ -27,14 +27,13 @@ const addressCreateService = async ({
   }
 
   const newAddress = new Address();
-  //newAddress.user = user;
   newAddress.street = street;
   newAddress.number = number;
   newAddress.cep = cep;
   newAddress.neighborhood = neighborhood;
   newAddress.country = country;
   newAddress.complement = complement;
-  newAddress.city = city
+  newAddress.city = city;
 
   addressRepository.create(newAddress);
 

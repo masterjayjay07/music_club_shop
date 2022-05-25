@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { AppError, handleError } from "../errors/AppError";
 import jwt from "jsonwebtoken";
 import AppDataSource from "../data-source";
-import Order from "../entities/order.entity";
 import { User } from "../entities/user.entity";
 
 interface IToken {
@@ -17,8 +16,8 @@ const verifyIfYouAreTryingToUpdateOrDeleteAdminUser = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const userRepository = AppDataSource.getRepository(User)
-  const user = await userRepository.findOne({where:{id}})
+  const userRepository = AppDataSource.getRepository(User);
+  const user = await userRepository.findOne({ where: { id } });
 
   let token: string = req.headers.authorization || "";
   token = token.replace("Bearer ", "");
@@ -30,7 +29,10 @@ const verifyIfYouAreTryingToUpdateOrDeleteAdminUser = async (
   const userId = sub;
 
   if (id !== userId && user?.is_adm === true) {
-    const errorCatched = new AppError(401, `You can't update or delete another admin user`);
+    const errorCatched = new AppError(
+      401,
+      `You can't update or delete another admin user`
+    );
     handleError(errorCatched, res);
   }
 
