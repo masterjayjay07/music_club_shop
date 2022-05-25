@@ -8,7 +8,7 @@ const userLoginController = async (req: Request, res: Response) => {
 
     const token = await userLoginService({ email, user_name, password });
 
-    return res.status(201).json({ token });
+    return res.status(200).json({ token });
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

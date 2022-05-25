@@ -3,13 +3,16 @@ import { Address } from "../../entities/address.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/AppError";
 
-const addressListOneService = async (user_id: string) => {
+const addressListOneService = async (id: string) => {
   const addressRepository = AppDataSource.getRepository(Address);
   //const userRepository = AppDataSource.getRepository(User);
 
   const allAddress = await addressRepository.find();
 
-  const address = allAddress.find(address=>address.id===user_id)
+  const address = allAddress.filter(address=>address.id===id)
+  if(!allAddress){
+    throw new AppError(404,'Not found any address')
+  }
   return address
   //const allUser = await userRepository.find();
 

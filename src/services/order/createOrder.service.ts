@@ -66,7 +66,6 @@ const createOrderService = async ({
     await buysRepository.save(buy)
     
     for(let i=0; i<cart.products.length ;i++){ 
-      console.log(cart.products[i])
       const tobeSaved = buyProductRepository.create({
         buyId:buy.id,
         productId:cart.products[i].productId,
