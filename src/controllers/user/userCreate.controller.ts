@@ -6,6 +6,7 @@ import { instanceToPlain } from "class-transformer";
 
 const userCreateController = async (req: Request, res: Response) => {
   try {
+
     if(process.env.NODE_ENV === "test"){
       const { name, email, user_name, birth_date, password, is_adm,tel } = req.body;
       const newUser = await userCreateService({
