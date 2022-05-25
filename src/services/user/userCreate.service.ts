@@ -35,8 +35,8 @@ const userCreateService = async ({
   cart.products = [];
   cart.subtotal = 0;
 
-  cart.userId = user.id
-  
+  cart.userId = user.id;
+
   cartRepository.create(cart);
   await cartRepository.save(cart);
 
@@ -45,7 +45,7 @@ const userCreateService = async ({
   user.tel = tel;
   user.user_name = user_name;
   user.birth_date = birth_date;
-  user.is_adm = false;
+  user.is_adm = is_adm;
   user.password = bcrypt.hashSync(password, 8);
   user.cart = cart;
 
