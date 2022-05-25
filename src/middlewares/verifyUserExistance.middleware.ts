@@ -9,7 +9,6 @@ const verifyUserExistanceMiddleware = async (req:Request,res:Response,next:NextF
     
     const {id} = req.params
     
-    console.log(id)
     const users = await userRepository.find()
 
     if(!users.some(user=>user.id===id)){

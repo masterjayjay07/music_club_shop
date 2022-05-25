@@ -7,7 +7,7 @@ import { IProductId } from "../../interfaces";
 import { IAddressCreate } from "../../interfaces";
 import { string } from "yup";
 
-describe("Create an user - API ROUTE", () => {
+describe("User CRUD route - API ROUTE", () => {
   let connection: DataSource;
 
   // Aqui dentro, nos conectamos com o banco de dados antes dos testes
@@ -25,38 +25,89 @@ describe("Create an user - API ROUTE", () => {
   });
 
   const userData: IUserId = {
-    name: "Joao",
-    email: "joaokenzie@gmail.com",
-    user_name: "juaozika",
-    birth_date: "18/09/2021",
-    password: "12345",
-    cart: {
-      total: 20,
-      userId: "3123dfs1",
-    },
+    name:"Gabriel",
+    email:"gabriel@mail.com",
+    password:"1234",
+    user_name:"gabriel",
+    birth_date:"18/06/1997",
+    tel:"24998913379",
+    is_adm:true
   };
 
+  const secondUser: IUserId = {
+    name:"José",
+    email:"jose@mail.com",
+    password:"1234",
+    user_name:"jose",
+    birth_date:"18/06/1997",
+    tel:"24998913379",
+    is_adm:false
+  };
+
+  const headers ={
+    token:''
+  }
+
+  const headersSecondUser ={
+    token:''
+  }
+  const loginData = {
+    email:"gabriel@mail.com",
+    password:"1234",
+  }
+  const loginDataSecondUser = {
+    email:'jose@mail.com',
+    password:"1234"
+  }
+  
   test("Should be able to create a new user in the API", async () => {
+    
     const response = await request(app).post("/users").send(userData);
+    const responseSecondUser = await request(app).post("/users").send(secondUser);
+    secondUser.id = responseSecondUser.body.id
     userData.id = response.body.id;
-
+    
     expect(response.status).toBe(201);
-
+    
     expect(response.body).toHaveProperty("id");
   });
+  
+  test("Should be able to login",async ()=>{
+    const response = await request(app).post('/users/login').send(loginData)
+    const responseSecondUser = await request(app).post('/users/login').send(loginDataSecondUser)
 
-  test("Should be able to list all users in the API", async () => {
-    const response = await request(app).get("/users");
+    headersSecondUser.token=`Bearer ${responseSecondUser.body.token}`
+    headers.token=`Bearer ${response.body.token}`
 
+    expect(response.body).toHaveProperty('token') 
+    expect(response.status).toBe(200)
+
+  })
+
+  test("Should be able to list all users in the API", async () => {   
+    
+    const response = await request(app).get("/users").set('Authorization', headers.token);
+    
     expect(response.status).toBe(200);
-    expect(response.body).toHaveLength(1);
+    expect(response.body).toHaveLength(2);
   });
 
-  it("Should be able to list one user", async () => {
-    const response = await request(app).get(`/users/${userData.id}`);
+
+  it("Should be able to list one", async () => {
+    const response = await request(app).get(`/users/${userData.id}`).set('Authorization', headers.token);
 
     expect(response.status).toBe(200);
     expect(response.body.id).toBeDefined();
+  });
+
+  it("Should be able to show Profile", async () => {
+    const response = await request(app).get(`/users/profile`).set('Authorization', headers.token);
+    
+    expect(response.status).toBe(200);
+    expect(response.body.id).toBeDefined();
+    expect(response.body.name).toBeDefined();
+    expect(response.body.email).toBeDefined();
+    expect(response.body.user_name).toBeDefined();
   });
 
   it("Should be able to update one user", async () => {
@@ -64,137 +115,156 @@ describe("Create an user - API ROUTE", () => {
       .patch(`/users/${userData.id}`)
       .send({
         name: `${userData.name} Atualizado`,
-      });
-
+      }).set('Authorization', headers.token);
     expect(response.status).toBe(200);
-    // expect(response.body.message).toBeDefined();
     expect(response.body.name).toContain("Atualizado");
   });
 
   it("Should be able to delete one user", async () => {
-    const response = await request(app).delete(`/users/${userData.id}`);
+    const response = await request(app).delete(`/users/${userData.id}`).set('Authorization', headers.token);
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
+  });
+
+  it("Should not be able to delete one User",async()=>{
+    const response = await request(app).delete(`/users/${userData.id}`).set('Authorization', headers.token);
+
+    expect(response.status).toBe(404)
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
+
+  it("Should not be able to update one user", async () => {
+    const response = await request(app)
+      .patch(`/users/${userData.id}`)
+      .send({
+        name: `${userData.name} Atualizado`,
+      }).set('Authorization', headers.token);
+    expect(response.status).toBe(409);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
     expect(response.body.message).toBeDefined();
   });
 
-  ////////////////////////////////////////////////////////////////////////
+  it("Should not be able to list one User",async()=>{
+    const response = await request(app).get(`/users/${userData.id}`).set('Authorization', headers.token);
 
-  const productData: IProductId = {
-    name: "vilolao",
-    price: 20,
-    img_url:
-      "https://www.sabornamesa.com.br/media/k2/items/cache/bf26253d7b8f171dddb155f84ce1d562_XL.jpg",
-    type: "Cordas",
-    quantity_stock: 2,
-    rating: 4,
-    label: "marca_famosa",
-  };
+    expect(response.status).toBe(404);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-  test("Should be able to create a new product the API", async () => {
-    const response = await request(app).post("/products").send(productData);
-    productData.id = response.body.id;
 
-    expect(response.status).toBe(201);
-    // expect(response.body.message).toBeDefined();
-    expect(response.body).toHaveProperty("id");
-  });
+  it("Should not be able to show profile",async()=>{
+    const response = await request(app).get(`/users/profile`).set('Authorization', headers.token);
 
-  test("Should be able to list all products in the API", async () => {
-    const response = await request(app).get("/products");
+    expect(response.status).toBe(404);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveLength(1);
-  });
+  it("Should not be able to create a new user with email already existing",async ()=>{
 
-  it("Should be able to list one product", async () => {
-    const response = await request(app).get(`/products/${productData.id}`);
+    const response = await request(app).post("/users").send(secondUser);
+    
+    expect(response.status).toBe(409);
+    
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-    expect(response.status).toBe(200);
-    expect(response.body.id).toBeDefined();
-  });
+  it("Should not be able to create a new user with user_name already existing",async ()=>{
 
-  it("Should be able to update one product", async () => {
-    const response = await request(app)
-      .patch(`/products/${productData.id}`)
-      .send({
-        name: `${productData.name} Atualizado`,
-      });
+    const firstResponse = await request(app).post("/users").send({
+      name:"Jenifer",
+      email:"jenifer1@mail.com",
+      password:"1234",
+      user_name:"jenifer",
+      birth_date:"18/06/1997",
+      tel:"24998913379",
+    });
+    const response = await request(app).post("/users").send({
+      name:"Jenifer",
+      email:"jenifer2@mail.com",
+      password:"1234",
+      user_name:"jenifer",
+      birth_date:"18/06/1997",
+      tel:"24998913379",
+    });
+    
+    expect(response.status).toBe(409);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-    expect(response.status).toBe(200);
-    // expect(response.body.message).toBeDefined();
-    expect(response.body.name).toContain("Atualizado");
-  });
+  it("Should not be able to list all users, if user is not admin",async ()=>{
+    const response = await request(app).get("/users").set('Authorization', headersSecondUser.token);
 
-  it("Should be able to delete one product", async () => {
-    const response = await request(app).delete(`/products/${productData.id}`);
+    expect(response.status).toBe(401);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-    expect(response.status).toBe(204);
-    // expect(response.body.message).toBeDefined();
-  });
+  it("Should not be able to list all users, without Authorization token",async ()=>{
+    const response = await request(app).get("/users")
 
-  //////////////////////////////////////////////////////////////////////////////
+    expect(response.status).toBe(401);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-  // interface IAddressCreateTest {
-  //   street: string;
-  //   number: number;
-  //   user_id?: string;
-  //   cep: string;
-  //   neighborhood: string;
-  //   country: string;
-  //   complement: string;
-  // }
+  it("Should not be able to list all users, with invalid Authorization token",async ()=>{
+    const response = await request(app).get("/users").set('Authorization', headersSecondUser.token+'joj');
 
-  // test("Should be able to create a new address the API", async () => {
-  //   const addressData: IAddressCreateTest = {
-  //     street: "Joao",
-  //     number: 20,
-  //     user_id: userData.id,
-  //     cep: "74444",
-  //     neighborhood: "bonança",
-  //     country: "Brasiu",
-  //     complement: "perto do bar",
-  //   };
+    expect(response.status).toBe(401);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-  //   const response = await request(app).post("/address").send(addressData);
-  //   console.log(userData);
-  //   console.log(addressData);
-  //   // addressData.user_id = response.body.user_id;
-  //   console.log(response.body);
-  //   expect(response.status).toBe(201);
-  //   // expect(response.body.message).toBeDefined();
-  //   expect(response.body).toHaveProperty("id");
-  // });
 
-  // test("Should be able to list all address in the API", async () => {
-  //   const response = await request(app).get("/address");
+  it("Should not be able to list one user, without Authorization token",async ()=>{
+    const response = await request(app).get(`/users/${secondUser.id}`)
 
-  //   expect(response.status).toBe(200);
-  //   expect(response.body).toHaveLength(1);
-  // });
+    expect(response.status).toBe(401);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-  // it("Should be able to list one address", async () => {
-  //   const response = await request(app).get(`/address/${addressData.user_id}`);
+  it("Should not be able to list one user, with invalid Authorization token",async ()=>{
+    const response = await request(app).get(`/users/${secondUser.id}`).set('Authorization', headersSecondUser.token+'joj');
 
-  //   expect(response.status).toBe(200);
-  //   expect(response.body.id).toBeDefined();
-  // });
+    expect(response.status).toBe(401);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-  // it("Should be able to update one address", async () => {
-  //   const response = await request(app)
-  //     .patch(`/address/${addressData.user_id}`)
-  //     .send({ addressData });
 
-  //   expect(response.status).toBe(200);
-  //   expect(response.body.message).toBeDefined();
-  // });
+  it("Should not be able to show user, without Authorization token",async ()=>{
+    const response = await request(app).get(`/users/profile`)
 
-  // it("Should be able to delete one product", async () => {
-  //   const response = await request(app).delete(
-  //     `/address/${addressData.user_id}`
-  //   );
+    expect(response.status).toBe(401);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
 
-  // expect(response.status).toBe(200);
-  //   // expect(response.body.message).toBeDefined();
-  // });
+  it("Should not be able to show user, with invalid Authorization token",async ()=>{
+    const response = await request(app).get(`/users/profile`).set('Authorization', headersSecondUser.token+'joj');
+
+    expect(response.status).toBe(401);
+    expect(response.body.status).toBeDefined();
+    expect(response.body.statusCode).toBeDefined();
+    expect(response.body.message).toBeDefined();
+  })
+  
 });
