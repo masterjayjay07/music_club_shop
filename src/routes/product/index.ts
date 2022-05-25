@@ -37,14 +37,14 @@ productRouter.get(
 productRouter.patch(
   "/:id",
   verifyTokenAuthenticationMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
+  verifyAdminMiddleware,
   expressYupMiddleware({ schemaValidator: validatorProductUpdate }),
   updateProductController
 );
 productRouter.delete(
   "/:id",
   verifyTokenAuthenticationMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
+  verifyAdminMiddleware,
   deleteProductController
 );
 
