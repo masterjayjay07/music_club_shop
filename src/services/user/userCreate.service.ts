@@ -17,7 +17,6 @@ const userCreateService = async ({
   const userRepository = AppDataSource.getRepository(User);
   const cartRepository = AppDataSource.getRepository(Cart);
 
-  console.log("entrouuuu");
   const users = await userRepository.find();
   const emailAlreadyExists = users.find((user) => user.email === email);
   const userNameAlreadyExists = users.find(
@@ -35,10 +34,9 @@ const userCreateService = async ({
   const cart = new Cart();
   cart.products = [];
   cart.subtotal = 0;
-  cart.userId = user.id;
 
-  console.log(cart);
-
+  cart.userId = user.id
+  
   cartRepository.create(cart);
   await cartRepository.save(cart);
 

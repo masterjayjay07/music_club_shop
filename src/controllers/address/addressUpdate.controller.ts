@@ -16,7 +16,7 @@ const addressUpdateController = async (req: Request, res: Response) => {
       complement,
     });
     return res
-      .status(201)
+      .status(200)
       .json({ message: "Address updated", address: updatedAddress });
   } catch (err) {
     if (err instanceof AppError) {

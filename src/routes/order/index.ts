@@ -13,8 +13,7 @@ import validatorOrderUpdate from "../../schemas/order/update.validation";
 
 import verifyTokenAuthenticationMiddleware from "../../middlewares/authToken.middleware";
 import verifyAdminMiddleware from "../../middlewares/verifyAdmin.middleware";
-import verifyIfItsAdmOrOwnerMiddleware from "../../middlewares/verifyIfItsAdmOrOwner.middleware";
-
+import verifyIfItsAdmOrOwnerOrderMiddleware from "../../middlewares/verifyIfItsAdmOrOwnerOrder.middleware";
 const orderRouter = Router();
 
 orderRouter.get(
@@ -37,19 +36,19 @@ orderRouter.get(
 orderRouter.get(
   "/:id",
   verifyTokenAuthenticationMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
+  verifyIfItsAdmOrOwnerOrderMiddleware,
   orderListOneController
 );
 orderRouter.delete(
   "/:id",
   verifyTokenAuthenticationMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
+  verifyIfItsAdmOrOwnerOrderMiddleware,
   orderDeleteController
 );
 orderRouter.patch(
   "/:id",
   verifyTokenAuthenticationMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
+  verifyIfItsAdmOrOwnerOrderMiddleware,
   expressYupMiddleware({ schemaValidator: validatorOrderUpdate }),
   orderUpdateController
 );

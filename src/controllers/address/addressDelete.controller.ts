@@ -6,7 +6,7 @@ const addressDeleteController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     await addressDeleteService(id);
-    return res.status(200).json({ message: "Address deleted" });
+    return res.status(204).json({ message: "Address deleted" });
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

@@ -25,7 +25,7 @@ const verifyAdminMiddleware = async (
 
   const user = await repository.findOne({ where: { id: userId } });
 
-  if (user?.is_adm === false) {
+  if (user?.is_adm !== true) {
     const err = new AppError(401, "You need to be admin");
     handleError( err, res);
     return

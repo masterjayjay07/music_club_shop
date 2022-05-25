@@ -8,7 +8,7 @@ const cartListOneService = async (id: string) => {
   const cart = await cartRepository.findOne({ where: { id } });
 
   if (!cart) {
-    throw new AppError(509, "Cart does not exist");
+    throw new AppError(404, "Cart does not exist");
   }
 
   return cart;

@@ -6,7 +6,6 @@ import { instanceToPlain } from "class-transformer";
 const userUpdateController = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { name, email, user_name, birth_date, password } = req.body;
-  console.log(req.body);
 
   try {
     const user = await userUpdateService({

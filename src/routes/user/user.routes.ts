@@ -17,6 +17,7 @@ import { expressYupMiddleware } from "express-yup-middleware";
 import validatorUserCreate from "../../schemas/user/create.validation";
 import validatorUserUpdate from "../../schemas/user/update.validation";
 import validatorUserLogin from "../../schemas/user/login.validation";
+import verifyIfYouAreTryingToUpdateOrDeleteAdminUser from "../../middlewares/verifyIfYouAreTryingToUpdateOrDeleteAdminUser.middleware";
 
 const userRouter = Router();
 userRouter.post(
@@ -51,6 +52,7 @@ userRouter.patch(
   "/:id",
   verifyTokenAuthenticationMiddleware,
   verifyIfItsAdmOrOwnerMiddleware,
+  verifyIfYouAreTryingToUpdateOrDeleteAdminUser,
   expressYupMiddleware({ schemaValidator: validatorUserUpdate }),
   userUpdateController
 );
@@ -59,6 +61,7 @@ userRouter.delete(
   "/:id",
   verifyTokenAuthenticationMiddleware,
   verifyIfItsAdmOrOwnerMiddleware,
+  verifyIfYouAreTryingToUpdateOrDeleteAdminUser,
   userDeleteSelfController
 );
 
