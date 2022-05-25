@@ -6,11 +6,8 @@ import { instanceToPlain } from "class-transformer";
 
 const userCreateController = async (req: Request, res: Response) => {
   try {
-    
-    const { name, email, user_name, birth_date, password, is_adm,tel } = req.body;
-  
-
     if(process.env.NODE_ENV === "test"){
+      const { name, email, user_name, birth_date, password, is_adm,tel } = req.body;
       const newUser = await userCreateService({
         name,
         email,
@@ -23,6 +20,7 @@ const userCreateController = async (req: Request, res: Response) => {
       return res.status(201).send(instanceToPlain(newUser));
     }
     else{
+      const { name, email, user_name, birth_date, password,tel } = req.body;
       const newUser = await userCreateService({
         name,
         email,
@@ -32,7 +30,6 @@ const userCreateController = async (req: Request, res: Response) => {
         tel
       });
       return res.status(201).send(instanceToPlain(newUser));
-
     }
 
   } catch (err) {

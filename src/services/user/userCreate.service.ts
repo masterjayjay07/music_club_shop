@@ -52,6 +52,7 @@ const userCreateService = async ({
   
   userRepository.create(user);
   await userRepository.save(user);
+  console.log(process.env.NODE_ENV);
   
   return user;
 };
