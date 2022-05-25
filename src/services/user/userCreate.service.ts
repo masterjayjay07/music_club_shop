@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs";
 import { AppError } from "../../errors/AppError";
 import Cart from "../../entities/cart.entity";
 
-
 const userCreateService = async ({
   name,
   email,
@@ -17,18 +16,18 @@ const userCreateService = async ({
 }: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
   const cartRepository = AppDataSource.getRepository(Cart);
-  
-  console.log("entrouuuu")
+
+  console.log("entrouuuu");
   const users = await userRepository.find();
   const emailAlreadyExists = users.find((user) => user.email === email);
   const userNameAlreadyExists = users.find(
     (user) => user.user_name === user_name
-    );
+  );
 
   if (emailAlreadyExists) {
     throw new AppError(409, "Email already exists");
   }
-  
+
   if (userNameAlreadyExists) {
     throw new AppError(409, "Username already exists");
   }
@@ -36,25 +35,25 @@ const userCreateService = async ({
   const cart = new Cart();
   cart.products = [];
   cart.subtotal = 0;
-  cart.userId = user.id
-  
-  console.log(cart)
-  
+  cart.userId = user.id;
+
+  console.log(cart);
+
   cartRepository.create(cart);
   await cartRepository.save(cart);
-  
+
   user.name = name;
   user.email = email;
-  user.tel = tel
+  user.tel = tel;
   user.user_name = user_name;
   user.birth_date = birth_date;
-  user.is_adm = is_adm;
+  user.is_adm = false;
   user.password = bcrypt.hashSync(password, 8);
-  user.cart = cart
-  
+  user.cart = cart;
+
   userRepository.create(user);
   await userRepository.save(user);
-  
+
   return user;
 };
 

@@ -5,7 +5,7 @@ import { instanceToPlain } from "class-transformer";
 
 const userUpdateController = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const { name, email, user_name, birth_date, password, is_adm } = req.body;
+  const { name, email, user_name, birth_date, password } = req.body;
   console.log(req.body);
 
   try {
@@ -16,7 +16,6 @@ const userUpdateController = async (req: Request, res: Response) => {
       user_name,
       birth_date,
       password,
-      is_adm,
     });
 
     return res.json(instanceToPlain(user));
