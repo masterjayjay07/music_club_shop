@@ -1118,7 +1118,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/products/:id`
+### `/cart/:id`
 
 ### Exemplo de Request:
 ```
