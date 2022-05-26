@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import AppDataSource from "../../data-source";
 import { Product } from "../../entities/product.entity";
 import { AppError } from "../../errors/AppError";
@@ -12,7 +11,7 @@ const createProductService = async ({
   quantity_stock,
   rating,
   label,
-  description
+  description,
 }: ICreateProduct) => {
   const productRepository = AppDataSource.getRepository(Product);
 
@@ -34,7 +33,7 @@ const createProductService = async ({
     quantity_stock,
     rating,
     label,
-    description
+    description,
   });
 
   await productRepository.save(newProduct);
