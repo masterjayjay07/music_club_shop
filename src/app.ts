@@ -13,6 +13,4 @@ app.use(express.json());
 app.use(routes);
 app.use(errorMiddleware);
 
-app.use(errorMiddleware);
-
 export default app;
