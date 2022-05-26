@@ -12,5 +12,5 @@ router.use("/products", productRouter);
 router.use("/cart", cartRouter);
 router.use("/address", addressRoutes);
 router.use("/orders", orderRouter);
-//arruma ai
+
 export default router;

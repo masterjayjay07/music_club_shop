@@ -5,9 +5,17 @@ import { AppError, handleError } from "../../errors/AppError";
 const updateProductController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, price, img_url, type, quantity_stock, rating, label,description } =
-      req.body;
-  
+    const {
+      name,
+      price,
+      img_url,
+      type,
+      quantity_stock,
+      rating,
+      label,
+      description,
+    } = req.body;
+
     const user = await updateProductService({
       id,
       name,
@@ -17,11 +25,10 @@ const updateProductController = async (req: Request, res: Response) => {
       quantity_stock,
       rating,
       label,
-      description
+      description,
     });
-  
+
     return res.status(200).json(user);
-    
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import userUpdateService from "../../services/user/userUpdate.service";
 import { AppError, handleError } from "../../errors/AppError";
 import { instanceToPlain } from "class-transformer";

@@ -4,9 +4,17 @@ import createProductService from "../../services/product/createProduct.service";
 
 const createProductController = async (req: Request, res: Response) => {
   try {
-    const { name, price, img_url, type, quantity_stock, rating, label,description } =
-      req.body;
-  
+    const {
+      name,
+      price,
+      img_url,
+      type,
+      quantity_stock,
+      rating,
+      label,
+      description,
+    } = req.body;
+
     const user = await createProductService({
       name,
       price,
@@ -15,17 +23,15 @@ const createProductController = async (req: Request, res: Response) => {
       quantity_stock,
       rating,
       label,
-      description
+      description,
     });
-  
+
     return res.status(201).json(user);
-    
   } catch (err) {
     if (err instanceof AppError) {
       handleError(err, res);
     }
   }
-
 };
 
 export default createProductController;

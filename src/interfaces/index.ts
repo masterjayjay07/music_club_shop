@@ -1,5 +1,3 @@
-import { GeneratedIdentifierFlags } from "typescript";
-
 export interface IAddressCreate {
   user_id: string;
   street: string;
@@ -8,7 +6,7 @@ export interface IAddressCreate {
   neighborhood: string;
   country: string;
   complement: string;
-  city:string
+  city: string;
 }
 
 export interface IUserCreate {
@@ -18,7 +16,7 @@ export interface IUserCreate {
   birth_date: string;
   password: string;
   is_adm?: boolean;
-  tel:string
+  tel: string;
 }
 
 export interface IUserId {
@@ -28,8 +26,8 @@ export interface IUserId {
   birth_date: string;
   password: string;
   id?: string;
-  tel:string;
-  is_adm?:boolean
+  tel: string;
+  is_adm?: boolean;
 }
 
 export interface IUserLogin {
@@ -71,7 +69,7 @@ export interface IProduct {
   quantity_stock: number;
   rating: number;
   label: string;
-  description:string
+  description: string;
 }
 
 export interface IProductId {
@@ -83,7 +81,7 @@ export interface IProductId {
   rating: number;
   label: string;
   id?: string;
-  description:string
+  description: string;
 }
 
 export interface ICreateProduct {
@@ -94,9 +92,9 @@ export interface ICreateProduct {
   quantity_stock: number;
   rating: number;
   label: string;
-  description:string
+  description: string;
 }
-export interface IToken{
+export interface IToken {
   email: string;
   is_adm: boolean;
   sub: string;

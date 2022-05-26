@@ -29,9 +29,12 @@ cartRouter.get(
   verifyAdminMiddleware,
   cartListController
 );
-cartRouter.get("/profile", authTokenMiddleware, 
-verifyAdminMiddleware,
-cartListProfileController);
+cartRouter.get(
+  "/profile",
+  authTokenMiddleware,
+  verifyAdminMiddleware,
+  cartListProfileController
+);
 
 cartRouter.get(
   "/:id",
@@ -45,7 +48,6 @@ cartRouter.delete(
   verifyIfItsAdmOrOwnerMiddleware,
   cartRemoveOne
 );
-
 
 cartRouter.delete(
   "/removeProd/:cartProdId",

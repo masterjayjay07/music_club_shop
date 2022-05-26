@@ -11,7 +11,6 @@ import userUpdateController from "../../controllers/user/userUpdate.controller";
 import verifyTokenAuthenticationMiddleware from "../../middlewares/authToken.middleware";
 import verifyAdminMiddleware from "../../middlewares/verifyAdmin.middleware";
 import verifyIfItsAdmOrOwnerMiddleware from "../../middlewares/verifyIfItsAdmOrOwner.middleware";
-import verifyUserExistanceMiddleware from "../../middlewares/verifyUserExistance.middleware";
 
 import { expressYupMiddleware } from "express-yup-middleware";
 import validatorUserCreate from "../../schemas/user/create.validation";
@@ -25,9 +24,11 @@ userRouter.post(
   expressYupMiddleware({ schemaValidator: validatorUserCreate }),
   userCreateController
 );
-userRouter.post("/login", 
+userRouter.post(
+  "/login",
   expressYupMiddleware({ schemaValidator: validatorUserLogin }),
-  userLoginController);
+  userLoginController
+);
 
 userRouter.get(
   "/",

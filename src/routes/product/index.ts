@@ -10,8 +10,6 @@ import validatorProductUpdate from "../../schemas/product/update.validation";
 
 import verifyTokenAuthenticationMiddleware from "../../middlewares/authToken.middleware";
 import verifyAdminMiddleware from "../../middlewares/verifyAdmin.middleware";
-import verifyIfItsAdmOrOwnerMiddleware from "../../middlewares/verifyIfItsAdmOrOwner.middleware";
-
 
 const productRouter = Router();
 
@@ -22,18 +20,8 @@ productRouter.post(
   expressYupMiddleware({ schemaValidator: validatorProductCreate }),
   createProductController
 );
-productRouter.get(
-  "/",
-//   verifyTokenAuthenticationMiddleware,
-//   verifyAdminMiddleware,
-  listProductsController
-);
-productRouter.get(
-  "/:id",
-//   verifyTokenAuthenticationMiddleware,
-//   verifyIfItsAdmOrOwnerMiddleware,
-  listOneProductController
-);
+productRouter.get("/", listProductsController);
+productRouter.get("/:id", listOneProductController);
 productRouter.patch(
   "/:id",
   verifyTokenAuthenticationMiddleware,
