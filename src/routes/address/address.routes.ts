@@ -30,14 +30,14 @@ addressRoutes.get(
 addressRoutes.patch(
   "/:id",
   authTokenMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
+  verifyAdminMiddleware,
   addressUpdateController
 );
 
 addressRoutes.delete(
   "/:id",
   authTokenMiddleware,
-  verifyIfItsAdmOrOwnerMiddleware,
+  verifyAdminMiddleware,
   addressDeleteController
 );
 
