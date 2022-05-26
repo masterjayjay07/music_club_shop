@@ -28,11 +28,8 @@ export interface IUserId {
   birth_date: string;
   password: string;
   id?: string;
-  cart: {
-    total: number;
-    userId: string;
-    id?: string;
-  };
+  tel:string;
+  is_adm?:boolean
 }
 
 export interface IUserLogin {
@@ -86,6 +83,7 @@ export interface IProductId {
   rating: number;
   label: string;
   id?: string;
+  description:string
 }
 
 export interface ICreateProduct {

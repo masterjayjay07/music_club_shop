@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError, handleError } from "../errors/AppError";
 import jwt from "jsonwebtoken";
-import AppDataSource from '../data-source'
-import Order from '../entities/order.entity'
+import AppDataSource from "../data-source";
+import Order from "../entities/order.entity";
+import { User } from "../entities/user.entity";
 
 interface IToken {
   email: string;
@@ -10,14 +11,15 @@ interface IToken {
   sub: string;
 }
 
-const verifyIfItsAdmOrOwnerMiddleware = async (
+const verifyIfYouAreTryingToUpdateOrDeleteAdminUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  
-
   const { id } = req.params;
+  const userRepository = AppDataSource.getRepository(User)
+  const user = await userRepository.findOne({where:{id}})
+
   let token: string = req.headers.authorization || "";
   token = token.replace("Bearer ", "");
 
@@ -27,15 +29,11 @@ const verifyIfItsAdmOrOwnerMiddleware = async (
   const { sub } = decoded;
   const userId = sub;
 
-
- 
-    if (id !== userId && decoded.is_adm === false) {
-      const errorCatched = new AppError(401, `You need to have admin permission `);
-      handleError(errorCatched, res);
-    }
-
-  
+  if (id !== userId && user?.is_adm === true) {
+    const errorCatched = new AppError(401, `You can't update or delete another admin user`);
+    handleError(errorCatched, res);
+  }
 
   next();
 };
-export default verifyIfItsAdmOrOwnerMiddleware;
+export default verifyIfYouAreTryingToUpdateOrDeleteAdminUser;
