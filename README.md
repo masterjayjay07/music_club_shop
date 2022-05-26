@@ -230,7 +230,7 @@ https://api-music-club-shop.herokuapp.com/
 
 Diagrama ER da API definindo bem as relações entre as tabelas do banco de dados.
 
-![DER](download_720.png)
+![DER](musiclubshop.drawio.png)
 
 ---
 
