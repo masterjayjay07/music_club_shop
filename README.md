@@ -976,7 +976,7 @@ O objeto Carrinho é definido como:
 
 ### Exemplo de Request:
 ```
-GET /products
+GET /cart
 Host: https://api-music-club-shop.herokuapp.com/cart
 Authorization: Adm and user
 Content-type: application/json
