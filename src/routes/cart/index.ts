@@ -29,12 +29,7 @@ cartRouter.get(
   verifyAdminMiddleware,
   cartListController
 );
-cartRouter.get(
-  "/profile",
-  authTokenMiddleware,
-  verifyAdminMiddleware,
-  cartListProfileController
-);
+cartRouter.get("/profile", authTokenMiddleware, cartListProfileController);
 
 cartRouter.get(
   "/:id",
