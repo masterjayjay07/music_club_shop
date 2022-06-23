@@ -1250,7 +1250,7 @@ Vazio
 
 ### Exemplo de Request:
 ```
-GET /cart/profile
+DELETE /cart/profile
 Host: https://api-music-club-shop.herokuapp.com/cart/cart/removerProd:cartProdId
 Authorization: Adm and user
 Content-type: application/json
@@ -1346,7 +1346,7 @@ O objeto Pedidos é definido como:
 ### Exemplo de Request:
 ```
 POST /orders
-Host: https://api-music-club-shop.herokuapp.com/order
+Host: https://api-music-club-shop.herokuapp.com/orders
 Authorization: Adm and user
 Content-type: application/json
 ```
@@ -1424,7 +1424,7 @@ OBS.: Chaves não presentes no schema serão removidas.
 ### Exemplo de Request:
 ```
 GET /orders
-Host: https://api-music-club-shop.herokuapp.com/order
+Host: https://api-music-club-shop.herokuapp.com/orders
 Authorization: Adm
 Content-type: application/json
 ```
@@ -1534,7 +1534,7 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 ### Exemplo de Request:
 ```
 GET /orders/profile
-Host: https://api-music-club-shop.herokuapp.com/order/profile
+Host: https://api-music-club-shop.herokuapp.com/orders/profile
 Authorization: Adm and user
 Content-type: application/json
 ```
@@ -1886,7 +1886,7 @@ Vazio
 
 ### Exemplo de Request:
 ```
-GET /orders/:id
+PATCH /orders/:id
 Host: https://api-music-club-shop.herokuapp.com//order/:id
 Authorization: Adm 
 Content-type: application/json
