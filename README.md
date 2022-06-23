@@ -1341,11 +1341,11 @@ O objeto Pedidos é definido como:
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/order`
+### `/orderS`
 
 ### Exemplo de Request:
 ```
-GET /order
+POST /orders
 Host: https://api-music-club-shop.herokuapp.com/order
 Authorization: Adm and user
 Content-type: application/json
@@ -1419,11 +1419,11 @@ OBS.: Chaves não presentes no schema serão removidas.
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/order`
+### `/orders`
 
 ### Exemplo de Request:
 ```
-GET /order
+GET /orders
 Host: https://api-music-club-shop.herokuapp.com/order
 Authorization: Adm
 Content-type: application/json
@@ -1529,11 +1529,11 @@ Nenhum, o máximo que pode acontecer é retornar uma lista vazia.
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/order/profile`
+### `/orders/profile`
 
 ### Exemplo de Request:
 ```
-GET /order/profile
+GET /orders/profile
 Host: https://api-music-club-shop.herokuapp.com/order/profile
 Authorization: Adm and user
 Content-type: application/json
@@ -1646,11 +1646,11 @@ Vazio
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/order/listuserorder/:user_Id`
+### `/orders/listuserorder/:user_Id`
 
 ### Exemplo de Request:
 ```
-GET /order/listuserorder/:user_Id
+GET /orders/listuserorder/:user_Id
 Host: https://api-music-club-shop.herokuapp.com/products/:id
 Authorization: Adm
 Content-type: application/json
@@ -1763,11 +1763,11 @@ Vazio
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/order/:id`
+### `/orders/:id`
 
 ### Exemplo de Request:
 ```
-GET /order/:id
+GET /orders/:id
 Host: https://api-music-club-shop.herokuapp.com//order/:id
 Authorization: Adm
 Content-type: application/json
@@ -1882,11 +1882,11 @@ Vazio
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/order/:id`
+### `/orders/:id`
 
 ### Exemplo de Request:
 ```
-GET /order/:id
+GET /orders/:id
 Host: https://api-music-club-shop.herokuapp.com//order/:id
 Authorization: Adm 
 Content-type: application/json
