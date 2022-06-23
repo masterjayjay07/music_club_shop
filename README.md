@@ -1246,11 +1246,11 @@ Vazio
 
 [ Voltar aos Endpoints ](#5-endpoints)
 
-### `/cart/removerProd:cartProdId`
+### `/cart/removerProd/:cartProdId`
 
 ### Exemplo de Request:
 ```
-DELETE /cart/profile
+DELETE /cart/removerProd/:cartProdId
 Host: https://api-music-club-shop.herokuapp.com/cart/cart/removerProd:cartProdId
 Authorization: Adm and user
 Content-type: application/json
